@@ -1,0 +1,231 @@
+/*
+	This file is part of the OdinMS Maple Story Server
+    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc> 
+                       Matthias Butz <matze@odinms.de>
+                       Jan Christian Meyer <vimes@odinms.de>
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License version 3
+    as published by the Free Software Foundation. You may not use, modify
+    or distribute this program under any other version of the
+    GNU Affero General Public License.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+/*
+ *
+ *@author Ronan
+ */
+
+var status = 0;
+var expedition;
+var expedMembers;
+var player;
+var em;
+const ExpeditionType = Java.type('org.gms.server.expeditions.ExpeditionType');
+const exped = ExpeditionType.BALROG_NORMAL;
+var expedName = "蝙蝠怪巴洛古";
+var expedBoss = "巴洛古";
+var expedMap = "蝙蝠怪的墓地";
+var dailyMaxEntry = 50;
+
+var list = "你想做什么？#b\r\n\r\n#L1#查看当前远征队成员#l\r\n#L2#开始战斗！#l\r\n#L3#退出远征队#l";
+
+
+function getDailyEntryCount(charId) {
+    var used = cm.getAccountExtendValue("巴洛古远征_" + charId, true);
+    return (used == null || used === "") ? 0 : parseInt(used);
+}
+
+function incrementDailyEntry(charId) {
+    var used = getDailyEntryCount(charId);
+    cm.saveOrUpdateAccountExtendValue("巴洛古远征_" + charId, String(used + 1), true);
+}
+
+function start() {
+    action(1, 0, 0);
+}
+
+function action(mode, type, selection) {
+
+    player = cm.getPlayer();
+    expedition = cm.getExpedition(exped);
+    em = cm.getEventManager("BalrogBattle");
+
+    if (mode == -1) {
+        cm.dispose();
+    } else {
+        if (mode == 0) {
+            cm.dispose();
+            return;
+        }
+
+        if (status == 0) {
+            if (player.getLevel() < exped.getMinLevel() || player.getLevel() > exped.getMaxLevel()) { //Don't fit requirement, thanks Conrad
+                cm.sendOk("您不符合与" + expedBoss + "战斗的条件！");
+                cm.dispose();
+            } else if (expedition == null) { //Start an expedition
+                cm.sendSimple("#e#b<远征：" + expedName + ">\r\n#k#n" + em.getProperty("party") + "\r\n\r\n你想组建一个团队来挑战 #r" + expedBoss + "#k 吗？\r\n#b#L1#让我们开始吧！#l\r\n\#L2#不，我想再等一会儿...#l\r\n\#L3#我想了解一下这次远征的信息...#l");
+                status = 1;
+            } else if (expedition.isLeader(player)) { //If you're the leader, manage the exped
+                if (expedition.isInProgress()) {
+                    cm.sendOk("你的远征已经在进行中，对于那些仍在战斗中的人，让我们为那些勇敢的灵魂祈祷吧。");
+                    cm.dispose();
+                } else {
+                    var dailyCount = getDailyEntryCount(player.getId());
+                    cm.sendSimple(list + "\r\n\r\n#r今日已进入" + dailyCount + "次，最多进入" + dailyMaxEntry + "次#k");
+                    status = 2;
+                }
+            } else if (expedition.isRegistering()) { //If the expedition is registering
+                if (expedition.contains(player)) { //If you're in it but it hasn't started, be patient
+                    cm.sendOk("你已经登记参加远征队了。请等待 #r" + expedition.getLeader().getName() + "#k 开始。");
+                    cm.dispose();
+                } else { //If you aren't in it, you're going to get added
+                    cm.sendOk(expedition.addMember(cm.getPlayer()));
+                    cm.dispose();
+                }
+            } else if (expedition.isInProgress()) { //Only if the expedition is in progress
+                if (expedition.contains(player)) { //If you're registered, warp you in
+                    var dailyCount = getDailyEntryCount(player.getId());
+                    if (dailyCount >= dailyMaxEntry) {
+                        cm.sendOk("今日已进入" + dailyCount + "次，最多进入" + dailyMaxEntry + "次");
+                        cm.dispose();
+                        return;
+                    }
+                    var eim = em.getInstance(expedName + player.getClient().getChannel());
+                    if (eim.getIntProperty("canJoin") == 1) {
+                        eim.registerPlayer(player);
+                        incrementDailyEntry(player.getId());
+                    } else {
+                        cm.sendOk("你的远征队已经开始对抗" + expedBoss + "的战斗。让我们为这些勇敢的灵魂祈祷。");
+                    }
+
+                    cm.dispose();
+                } else { //If you're not in by now, tough luck
+                    cm.sendOk("另一支远征队已经主动挑战了" + expedBoss + "，让我们为这些勇敢的灵魂祈祷吧。");
+                    cm.dispose();
+                }
+            }
+        } else if (status == 1) {
+            if (selection == 1) {
+                expedition = cm.getExpedition(exped);
+                if (expedition != null) {
+                    cm.sendOk("有人已经主动成为了远征队的领袖。试着加入他们吧！");
+                    cm.dispose();
+                    return;
+                }
+
+                var res = cm.createExpedition(exped);
+                if (res == 0) {
+                    cm.sendOk("#r" + expedBoss + " 远征#k 已经创建。\r\n\r\n再次与我交谈，查看当前队伍，或开始战斗！");
+                } else if (res > 0) {
+                    cm.sendOk("抱歉，您已经达到了此次远征的尝试次数！请另选他日再试……");
+                } else {
+                    cm.sendOk("在开始远征时发生了意外错误，请稍后重试。");
+                }
+
+                cm.dispose();
+
+            } else if (selection == 2) {
+                cm.sendOk("当然，并非每个人都能挑战" + expedBoss + "。");
+                cm.dispose();
+
+            } else {
+                cm.sendSimple("你好。我是#b#n无影#n#k，寺庙的看守人。这座寺庙目前正被蝙蝠怪包围。我们目前不知道是谁下的命令。" +
+                "几个星期以来#e#b特利斯坦#n#k一直派遣雇佣军阻止蝙蝠怪复活，但每次都被蝙蝠怪消灭了。" +
+                "所以，冒险者，你想试试你的运气来战胜这无法形容的恐怖吗？\r\n  #L1#什么是#e特利斯坦?");
+                    
+                status = 10;
+            }
+        } else if (status == 2) {
+            if (selection == 1) {
+                if (expedition == null) {
+                    cm.sendOk("无法加载远征。");
+                    cm.dispose();
+                    return;
+                }
+                expedMembers = expedition.getMemberList();
+                var size = expedMembers.size();
+                if (size == 1) {
+                    cm.sendOk("你是远征队中唯一的成员。");
+                    cm.dispose();
+                    return;
+                }
+                var text = "以下成员组成了你的远征队（点击成员名字可以将其踢出远征队）：\r\n";
+                text += "\r\n\t\t1." + expedition.getLeader().getName();
+                for (var i = 1; i < size; i++) {
+                    text += "\r\n#b#L" + (i + 1) + "#" + (i + 1) + ". " + expedMembers.get(i).getValue() + "#l\n";
+                }
+                cm.sendSimple(text);
+                status = 6;
+            } else if (selection == 2) {
+                var dailyCount = getDailyEntryCount(player.getId());
+                if (dailyCount >= dailyMaxEntry) {
+                    cm.sendOk("今日已进入" + dailyCount + "次，最多进入" + dailyMaxEntry + "次");
+                    cm.dispose();
+                    return;
+                }
+                var min = exped.getMinSize();
+                min = 1;
+                var size = expedition.getMemberList().size();
+                if (size < min) {
+                    cm.sendOk("你的远征队至少需要有" + min + "名玩家注册。");
+                    cm.dispose();
+                    return;
+                }
+
+                cm.sendOk("远征队即将出发，你现在将被护送到 #b" + expedMap + "#k。");
+                status = 4;
+            } else if (selection == 3) {
+                const PacketCreator = Java.type('org.gms.util.PacketCreator');
+                player.getMap().broadcastMessage(PacketCreator.serverNotice(6, expedition.getLeader().getName() + "远征结束了。"));
+                cm.endExpedition(expedition);
+                cm.sendOk("这次远征已经结束。有时候最好的策略就是撤退。");
+                cm.dispose();
+
+            }
+        } else if (status == 4) {
+            if (em == null) {
+                cm.sendOk("事件无法初始化，请在论坛上报告此问题。");
+                cm.dispose();
+                return;
+            }
+
+            em.setProperty("leader", player.getName());
+            em.setProperty("channel", player.getClient().getChannel());
+            if (!em.startInstance(expedition)) {
+                cm.sendOk("另一支远征队已经主动挑战了" + expedBoss + "，让我们为这些勇敢的灵魂祈祷吧。");
+                cm.dispose();
+                return;
+            }
+
+            var expedMembers = expedition.getMemberList();
+            for (var i = 0; i < expedMembers.size(); i++) {
+                incrementDailyEntry(expedMembers.get(i).getKey());
+            }
+
+            cm.dispose();
+
+        } else if (status == 6) {
+            if (selection > 0) {
+                var banned = expedMembers.get(selection - 1);
+                expedition.ban(banned);
+                cm.sendOk("你已经从远征中禁止了 " + banned.getValue() + "。");
+                cm.dispose();
+            } else {
+                var dailyCount = getDailyEntryCount(player.getId());
+                cm.sendSimple(list + "\r\n\r\n#r今日已进入" + dailyCount + "次，最多进入" + dailyMaxEntry + "次#k");
+                status = 2;
+            }
+        } else if (status == 10) {
+            cm.sendOk("特利斯坦负责监督世界经济和作战行动。它成立于40年前，就在黑魔法师被击败后。");
+            cm.dispose();
+        }
+    }
+}
