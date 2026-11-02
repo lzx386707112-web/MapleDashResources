@@ -1,3 +1,4 @@
+// 用户授权适配：五转完成后在常规技能窗显示五六转技能，不再发放入口道具。
 var status = -1;
 var selectedOption = -1;
 var selectedTargetJob = null;
@@ -133,28 +134,14 @@ function cleanupExplorerFifthJobItemIfLocked() {
 }
 
 function grantCompletedExplorerFifthJobItem() {
-    if (cm.haveItem(EXPLORER_FIFTH_JOB_ITEM_ID, 1)) {
-        cm.sendOk("你已经持有 #i" + EXPLORER_FIFTH_JOB_ITEM_ID + "# #b#t"
-            + EXPLORER_FIFTH_JOB_ITEM_ID + "##k，可以把它放到快捷键上使用。");
-        cm.dispose();
-        return;
-    }
-    if (!cm.canHold(EXPLORER_FIFTH_JOB_ITEM_ID, 1)) {
-        cm.sendOk("消耗栏背包空间不足，请整理后再来。");
-        cm.dispose();
-        return;
-    }
-    cm.gainItem(EXPLORER_FIFTH_JOB_ITEM_ID, 1);
-    cm.sendOk("已补领 #i" + EXPLORER_FIFTH_JOB_ITEM_ID + "# #b#t"
-        + EXPLORER_FIFTH_JOB_ITEM_ID + "##k。把它放到快捷键上即可随时打开五转技能面板。");
+    cm.sendOk("你已完成冒险家五转，五六转技能已显示在技能面板中，无需使用道具。");
     cm.dispose();
 }
 
 function buildExplorerFifthJobPrompt() {
     var text = "#e冒险家五转解锁#n\r\n\r\n";
     text += buildAdvancementRequirementsText();
-    text += "\r\n满足全部条件后将解锁五转并获得 #i" + EXPLORER_FIFTH_JOB_ITEM_ID + "# #b#t"
-        + EXPLORER_FIFTH_JOB_ITEM_ID + "##k，确定要继续吗？";
+    text += "\r\n满足全部条件后，五六转技能将直接显示在技能面板中，确定要继续吗？";
     return text;
 }
 
@@ -177,17 +164,9 @@ function unlockExplorerFifthJob() {
         cm.dispose();
         return;
     }
-    if (!cm.canHold(EXPLORER_FIFTH_JOB_ITEM_ID, 1)) {
-        cm.sendOk("消耗栏背包空间不足，请整理后再来。");
-        cm.dispose();
-        return;
-    }
-
     deductAdvancementCosts();
     cm.saveOrUpdateCharacterExtendValue(EXPLORER_FIFTH_JOB_COMPLETED_KEY, "1");
-    cm.gainItem(EXPLORER_FIFTH_JOB_ITEM_ID, 1);
-    cm.sendOk("冒险家五转解锁成功，已获得 #i" + EXPLORER_FIFTH_JOB_ITEM_ID + "# #b#t"
-        + EXPLORER_FIFTH_JOB_ITEM_ID + "##k。把它放到快捷键上即可随时打开五转技能面板。");
+    cm.sendOk("冒险家五转解锁成功，五六转技能已显示在技能面板中，无需使用道具。");
     cm.dispose();
 }
 
