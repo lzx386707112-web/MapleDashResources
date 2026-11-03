@@ -46,9 +46,6 @@ function action(mode, type, selection) {
         text += "#L1##金币兑换：金币兑换各种道具#l\t\r\n\r\n";
         text += "#L2#物品兑换：道具兑换道具#l\t\r\n\r\n";
         text += "#L3#物品兑换：矿石合成#l\t\r\n\r\n";
-        // 机器人/心臟的黄金枫叶货架。编号取 5 是因为 case 4 早被「副本兑换」占了
-        // （菜单上没画出来，但脚本里能走到），改 4 会把副本兑换挤掉。
-        text += "#L5#机器人兑换：黄金枫叶换机器人/心臟#l\t\r\n\r\n";
         cm.sendSimple(text);
     } else if (status === 1) {
         doSelect(selection);
@@ -70,9 +67,6 @@ function doSelect(selection) {
             break;
         case 4:
             openNpc("副本相关/副本兑换");
-            break;
-        case 5:
-            openNpc("机器人兑换");
             break;
         default:
             cm.sendOk("该功能暂不支持，敬请期待！");
