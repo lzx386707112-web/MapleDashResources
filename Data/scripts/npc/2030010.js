@@ -52,7 +52,12 @@ function action(mode, type, selection) {
     }
     if (status == 0) {
         if (cm.getMapId() == 280030000) {
-            if (!cm.getEventInstance().isEventCleared()) {
+            // 本地覆盖（2026-11-10）：祭坛里拿不到事件实例时（重登回图、实例已被回收），
+            // 源端这句 getEventInstance() 直接抛 TypeError，玩家只看到「对话脚本出错」，
+            // 而这个 NPC 是祭坛唯一的出口 —— 于是彻底离不开地图。
+            // 没有实例按「战斗还没打完」处理，照常让人走。
+            var eim = cm.getEventInstance();
+            if (eim == null || !eim.isEventCleared()) {
                 cm.sendYesNo("如果你现在离开，你将不得不重新开始。你确定要离开吗？");
             } else {
                 cm.sendYesNo("你们终于打败了扎昆，真是了不起的壮举！恭喜！你确定现在要离开吗？");
