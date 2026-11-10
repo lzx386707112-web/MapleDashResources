@@ -2,9 +2,14 @@
  *  Dallier - King Medal
  *  Lith Habor = 104000000
  *  Sleepywood = 105040300
+ *
+ *  本项目覆盖：源端 end() 是空函数，且 start() 最后一层直接 dispose、
+ *  没有 forceStartQuest —— 表现是「爱心使者」既接不下来也交不了。
+ *  这里补上接取与交付（勋章 1142014，Act/1 不含道具，只能由脚本发）。
  */
 
 var status = -1;
+var MEDAL = 1142014;
 
 function start(mode, type, selection) {
     if (mode == 0) {
@@ -27,12 +32,30 @@ function start(mode, type, selection) {
     } else if (status == 1) {
 	qm.sendNext("当前排名 \n\r\n\r1. #bMintLovePep#k : ???,???,??? 金币\n\r2. #bKelviinXD#k : 68,000,000 金币\n\r3. #bxBabyRence#k : 49,999,999 金币\n\r4. #bXxTrIStaArxx#k : 29,999,999 金币n\n\r5. #bxBabyRence#k : 14,000,000 金币\n\r\n\rUnderstand that we cannot divulge the exact number donated by the current King of Donation. \n\rAlso remember that all records will be reset every first of the month...");
     } else if (status == 2) {
-	qm.sendNextPrev("Best of luck to you. There's no real set date for this, so if you feel like you qualify for this, then feel free to come see me so I can determine whether you qualify for it. And remember that you will not be able to challenge other Titles unless you either forfeit this challenge or complete it...");
+	qm.sendOk("祝你好运。记录会在每月一号重置，完成挑战后记得回来找我。");
+	qm.forceStartQuest(29503);
 	qm.dispose();
     }
 }
 
 function end(mode, type, selection) {
+    if (mode != 1) {
+	qm.dispose();
+	return;
+    }
+    if (qm.getQuestStatus(29503) != 1) {
+	qm.dispose();
+	return;
+    }
+    if (!qm.canHold(MEDAL, 1)) {
+	qm.sendOk("你的装备栏没有空位。#b请先清出一个格子#k，再来领取勋章。");
+	qm.dispose();
+	return;
+    }
+    qm.gainItem(MEDAL, 1);
+    qm.forceCompleteQuest(29503);
+    qm.sendOk("恭喜你，收下这枚 #v" + MEDAL + "# #b#t" + MEDAL + "##k。");
+    qm.dispose();
 }
 
 /*function getMedalType(ids) {

@@ -35,12 +35,15 @@ function action(mode, type, selection) {
     if (CheckStatus(mode)) {
         if (status == 0) {
             //第一层对话
-            var strGetText = cm.getAccountExtendValue(key);
+            // 项目改口径：新人福利按**角色**判定，同一账号下的小号也能各领一次。
+            // 源端用 getAccountExtendValue（extend_type=11，键是 accountid），
+            // 这里换成角色级（extend_type=21，键是 character.id）。
+            var strGetText = cm.getCharacterExtendValue(key);
             if (strGetText == "已领取") {
-                cm.sendOk("您已经领取了新手奖励了。每个账户#r限领一次。#k");
+                cm.sendOk("您已经领取了新手奖励了。每个角色#r限领一次。#k");
                 cm.dispose();
             } else {
-                let text = "您确定要领取新手礼包吗？一个账户#r限领一次。#k\r\n\r\n";
+                let text = "您确定要领取新手礼包吗？一个角色#r限领一次。#k\r\n\r\n";
                 text += "奖励：\r\n\r\n";
                 dailyRewards.forEach(reward => {
                     if (reward.id === meso_id) {
@@ -57,7 +60,7 @@ function action(mode, type, selection) {
         } else if (status == 1) {
             //第二层对话
             if (!cm.isNotCanHold(2, 3)) {
-                cm.saveOrUpdateAccountExtendValue(key, "已领取");
+                cm.saveOrUpdateCharacterExtendValue(key, "已领取");
                 dailyRewards.forEach(reward => {
                     if (reward.id === meso_id) {
                         cm.gainMeso(reward.qty * 10000);

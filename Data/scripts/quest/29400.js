@@ -23,9 +23,16 @@
 	Author : 		kevintjuh93
 	Description: 		Quest - Veteran Hunter
 	Quest ID : 		29400
+
+	本项目覆盖：源端 end() 是「Not coded yet.」空桩（mode==1 时什么都不做，
+	对话框直接消失、任务停在 status=1），表现就是「勤奋的冒险家交不了」。
+	这里按源端意图补完交付：先校验装备栏空位，再发勋章 1142004，最后完成任务。
+	顺序不能反 —— forceCompleteQuest 在发奖之前会把任务置成已完成，
+	背包满时勋章就再也领不到了（QuestLogic.Complete 的奖励不会回滚）。
 */
 
 var status = -1;
+var MEDAL = 1142004;
 
 function start(mode, type, selection) {
     status++;
@@ -49,17 +56,24 @@ function start(mode, type, selection) {
 
 
 function end(mode, type, selection) {
-	java.lang.System.out.println("x")
-    status++;
+	// 玩家点「取消 / ESC」：只关对话，不改任务状态
 	if (mode != 1) {
-	    if(type == 1 && mode == 0) return;	    
-		else{
-		    qm.dispose();
-			return;
-		}		
-		if (status == 0) {
-			qm.sendOk("Not coded yet.");
-			qm.dispose();
-		}
+		qm.dispose();
+		return;
 	}
+	// 没接过或已完成：不要重复发勋章
+	if (qm.getQuestStatus(29400) != 1) {
+		qm.dispose();
+		return;
+	}
+	// 勋章进装备栏：先占位校验，失败就原地提示，任务保持「进行中」可以再来
+	if (!qm.canHold(MEDAL, 1)) {
+		qm.sendOk("你的装备栏没有空位。#b请先清出一个格子#k，再来领取勋章。");
+		qm.dispose();
+		return;
+	}
+	qm.gainItem(MEDAL, 1);
+	qm.forceCompleteQuest(29400);
+	qm.sendOk("恭喜你完成了挑战，收下这枚 #v" + MEDAL + "# #b#t" + MEDAL + "##k。");
+	qm.dispose();
 }
