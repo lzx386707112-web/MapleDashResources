@@ -9,15 +9,16 @@ MapleDashResources.part01.zip / part02.zip …；每个分包都是完整 ZIP，
 
 ## 脚本也在这份包里
 
-`Data/scripts/` 是 NPC/任务/传送门等运行时脚本的**唯一来源**（原 APK 内
+`Data/scripts/` 是 NPC/任务/传送门等脚本的**唯一维护和运行来源**（原 APK 内
 `Resources/Scripts/npc_scripts.json` 已删除）。这些文件由
 `MapleDash/tools/index_data_scripts.py` 登记进 `NativeAssetIndex.json`，
 随资源包一起下发到 `/sdcard/mapstory/Data/scripts`；游戏与后台文件树直接读它，
 改完保存即生效。
 
-- 本地改了脚本：跑一次 `MapleDash/tools/sync_npc_scripts.py` 同步，再打**增量补丁包**
+- 本地直接修改 `Data/scripts/` 中的脚本，再打**增量补丁包**
   （`pack_resource_patch.sh`）推手机，不必重传 10 GiB 全量包，也**不需要重出 APK**。
 - 只想临时试一个脚本：直接 `adb push` 到 `/sdcard/mapstory/Data/scripts/…` 后重启游戏即可。
+- `sync_npc_scripts.py` 只更新源端原件；仅在 `Data/scripts/` 不存在时初始化，已有目录不覆盖。
 - `Data/script-sources/` 是逐字节原件，只用于和源端对拍，运行时不读、**不进资源包**。
 - 手机端安装器不比对 APK 内嵌清单（全量包走直接解压、补丁走事务），所以清单里的脚本条目
   变了也不拦安装；APK 重出只是让内嵌清单与资源包保持一致。

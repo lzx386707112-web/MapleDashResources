@@ -222,14 +222,21 @@ function doUpgrade() {
         let speed = oldItem.getSpeed();
         let jump = oldItem.getJump();
 
-        // 生成新戒指
+        // 生成新戒指。Character.gainEquip(Character.java:10801) 参数顺序固定为：
+        // itemId, str, dex, int, luk, hp, mp, watk, matk, wdef, mdef, acc, avoid,
+        // hands, speed, jump, upgradeSlot, expireTime(分钟)。
+        // 原脚本把 hp/mp 写死 0、又把 hp/mp 塞到 wdef/mdef 位，后面全部错位到卷位；
+        // hands / upgradeSlot 没读过，传 null 让新戒指沿用自身模板（源端 null 不覆盖）。
         cm.getPlayer().gainEquip(
             newRingId,
             str, dex, int, luk,
-            0, 0,
+            hp, mp,
             watk, matk,
-            hp, mp, wdef, mdef, acc, avoid,
-            speed, jump, -1
+            wdef, mdef, acc, avoid,
+            null,
+            speed, jump,
+            null,
+            -1
         );
         let newName = ItemInformationProvider.getInstance().getName(newRingId);
         cm.sendOk(`升级成功！获得【#v${newRingId}##t${newRingId}#】\n四维+5 物攻+5 魔攻+10`);
