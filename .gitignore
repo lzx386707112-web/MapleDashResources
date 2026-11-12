@@ -1,2 +1,5 @@
 .DS_Store
 **/.DS_Store
+
+# WorkBuddy 内部目录（记忆/项目数据，不应进版本库）
+.workbuddy/
