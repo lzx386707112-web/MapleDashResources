@@ -1,5 +1,5 @@
 /**
- * @description 一键出售装备,可以自定义出售位置1-96格子
+ * @description 一键出售装备,可以自定义出售位置(默认整栏,按当前背包容量 1-96/128…)
  *
  * @author 吃瓜群众
  */
@@ -12,6 +12,10 @@ var sellType = InventoryType.EQUIP;
 var startStr = "开始";
 var endStr = "结束";
 var curChoose = 0;
+// 本工程背包单栏上限已从源端的 96 扩到 NativeInventoryLimits.MaxSlots(128)，
+// 上限必须问背包本身(inventory.getSlotLimit())，不能再写死 96。
+// 96 只作为取不到容量时的兜底，以及旧存档里「结束位置」默认值的识别标记。
+const LEGACY_END = 96;
 
 function start() {
     levelStart();
@@ -58,10 +62,12 @@ function levelSell() {
         cm.dispose();
         return;
     }
+    const limit = slotLimit(sellType);
+    const minEnd = Math.min(10, limit);
     const start = getValue(sellType, startStr);
     const end = getValue(sellType, endStr);
-    if (!(start > 0 && end > 0 && start < end && start <= 95 && end <= 96 && end >= 10)) {
-        cm.sendOk("设置的位置有误，无法出售！\r\n要求：起始格子1-95，结束格子10-96，且起始格子必须小于结束格子！");
+    if (!(start > 0 && end > 0 && start < end && start <= limit - 1 && end <= limit && end >= minEnd)) {
+        cm.sendOk("设置的位置有误，无法出售！\r\n要求：起始格子1-" + (limit - 1) + "，结束格子" + minEnd + "-" + limit + "，且起始格子必须小于结束格子！");
         cm.dispose();
         return;
     }
@@ -102,23 +108,24 @@ function settings(choose) {
 }
 
 function levelChooseSettings(keyType) {
-    let index = getValue(sellType, keyType) - 1;
     if (keyType === 0) {//开始位置
-        cm.getInputTextLevel("StartSettings", "请输入1-" + index + "数字");
+        cm.getInputTextLevel("StartSettings", "请输入1-" + (getValue(sellType, endStr) - 1) + "数字");
     } else if (keyType === 1) {//结束位置
-        cm.getInputTextLevel("EndSettings", "请输入" + index + "-96数字");
+        cm.getInputTextLevel("EndSettings", "请输入" + (getValue(sellType, startStr) + 1) + "-" + slotLimit(sellType) + "数字");
     }
 }
 
 //存储开始值
 function levelStartSettings(inputText) {
     const num = Number(inputText.trim());
-    if (Number.isInteger(num) && num > 0) {
+    const limit = slotLimit(sellType);
+    const end = getValue(sellType, endStr);
+    if (Number.isInteger(num) && num > 0 && num < end) {
         cm.saveOrUpdateCharacterExtendValue(getKey(sellType, startStr), "" + inputText);
         cm.sendOk("设置成功");
         cm.dispose()
     } else {
-        cm.sendOk("请输入正确的数字！起始格子1-95，结束的格子10-96，起始格子必须小于结束格子！");
+        cm.sendOk("请输入正确的数字！起始格子1-" + (end - 1) + "，结束的格子" + Math.min(10, limit) + "-" + limit + "，起始格子必须小于结束格子！");
         cm.dispose();
     }
 }
@@ -126,12 +133,14 @@ function levelStartSettings(inputText) {
 //存储结束值
 function levelEndSettings(inputText) {
     const num = Number(inputText.trim());
-    if (Number.isInteger(num) && num > 0) {
+    const limit = slotLimit(sellType);
+    const start = getValue(sellType, startStr);
+    if (Number.isInteger(num) && num > 0 && num > start && num <= limit) {
         cm.saveOrUpdateCharacterExtendValue(getKey(sellType, endStr), "" + inputText);
         cm.sendOk("设置成功");
         cm.dispose()
     } else {
-        cm.sendOk("请输入正确的数字！起始格子1-95，结束的格子10-96，起始格子必须小于结束格子！");
+        cm.sendOk("请输入正确的数字！起始格子1-" + (limit - 1) + "，结束的格子" + Math.min(10, limit) + "-" + limit + "，起始格子必须小于结束格子！");
         cm.dispose();
     }
 }
@@ -140,12 +149,32 @@ function getKey(itemType, keyType) {
     return "" + itemType + "_" + keyType;
 }
 
-function getValue(itemType, keyType) {
-    var value = cm.getCharacterExtendValue(getKey(itemType, keyType));
-    if (value) {
-        return Number(value)
+// 当前栏的实际格数：服务端 characters 的 *slots 列（商城扩充后最大 128）。
+// 取不到（异常值/NaN）时退回 96，保持旧行为。
+function slotLimit(itemType) {
+    if (!(itemType >= 1 && itemType <= 5)) {
+        return LEGACY_END;
     }
-    return keyType === startStr ? 1 : 96;
+    const limit = Number(cm.getInventory(itemType).getSlotLimit());
+    return limit > 0 ? limit : LEGACY_END;
+}
+
+function getValue(itemType, keyType) {
+    const limit = slotLimit(itemType);
+    var value = cm.getCharacterExtendValue(getKey(itemType, keyType));
+    const saved = value ? Number(value) : 0;
+    if (keyType === startStr) {
+        if (saved > 0 && saved < limit) {
+            return saved;
+        }
+        return 1;
+    }
+    // 结束位置：旧默认写死 96（源端背包上限）。容量扩到 128 后若继续用它，
+    // 96 之后的格子永远卖不到 —— 所以「等于旧默认 96」按未设置处理，默认整栏。
+    if (saved > 0 && saved <= limit && !(saved === LEGACY_END && limit > LEGACY_END)) {
+        return saved;
+    }
+    return limit;
 }
 
 function getSellType(index) {
