@@ -58,6 +58,29 @@ function end(mode, type, selection) {
     else beginTrial();
     qm.dispose();
 }
+// 正式 quest/1464.js 的入口转发（runScript 不传入口实参，这里用无参函数）。
+// 接取：先落任务状态，再按原规则抽一张上层图并开 300 秒计时。
+function accept() {
+    if (qm.isQuestStarted(1464)) {
+        qm.sendOk("试炼已经在进行中，请在剩余时间内找到地平线传送点。");
+        qm.dispose();
+        return;
+    }
+    qm.startQuest(1464);
+    if (!beginTrial()) qm.sendOk("请到玛斯特利亚女神所在的空间接受试炼。");
+    qm.dispose();
+}
+// 交付：只有 cleared 才能领石，奖励数量由宿主读 Act/1。
+function finish() {
+    var state = readTrial();
+    if (!(state && state.cleared)) {
+        qm.sendOk("试炼尚未通过。请在5分钟内找到世界树上层的地平线传送点后再回来。");
+        qm.dispose();
+        return;
+    }
+    if (!qm.completeItemRewardQuest(1464)) qm.sendOk("现在还不能领取神秘石，请清出背包空间后再来。");
+    qm.dispose();
+}
 function enterMap() {
     qm.removePortal(trialPortal);
     var state = readTrial();
