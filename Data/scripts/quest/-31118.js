@@ -1,14 +1,14 @@
-// -31118 (TMS 34418) - [星光之塔] 尋找蒂雅
+// -31118 (TMS 34418) - [星光之塔] 寻找蒂雅
 var status = -1;
 function start(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendNext("要幫忙準備出道的祕書#b蒂雅#k不見蹤影。"); }
+    if (status == 0) { qm.sendNext("要帮忙准备出道的秘书#b蒂雅#k不见踪影。"); }
     else { qm.forceStartQuest(); qm.dispose(); }
 }
 function end(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendOk("從練習室傳出某人的歌聲，歌聲的主人不是別人，正是祕書蒂雅。還以為自己已經放棄歌手之路，但卻無法放下自己的夢想。重新開始夢想的蒂雅，在熄燈的練習室內卻是如此閃耀。"); }
+    if (status == 0) { qm.sendOk("从练习室传出某人的歌声，歌声的主人不是别人，正是秘书蒂雅。还以为自己已经放弃歌手之路，但却无法放下自己的梦想。重新开始梦想的蒂雅，在熄灯的练习室内却是如此闪耀。"); }
     else { qm.forceCompleteQuest(); qm.dispose(); }
 }

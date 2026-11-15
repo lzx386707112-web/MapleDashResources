@@ -1,6 +1,6 @@
 // 机器人玩法任务 900004「机器人改装」（2026-11-03，docs/tms282-skill/11-android-migration.md §4.3）
 //
-// 收集 200 块 4000357 钢铁碎片 → 高級机器人(男/女 任选) + 青銅之心 1672001。
+// 收集 200 块 4000357 钢铁碎片 → 高级机器人(男/女 任选) + 青铜之心 1672001。
 // 前置：900003 已完成（由 QuestDef.startReq.quests 判定，脚本不再重复检查）。
 // 扣材料与发奖励都写在脚本里，原因同 900003.js。
 var status = -1;
@@ -17,8 +17,8 @@ function start(mode, type, selection) {
     status++;
     if (status == 0) {
         qm.sendAcceptDecline("那台补给型还跑得动？想换台高级的，就得给我更多料。\r\n"
-            + 需要 + " 块#t" + 零件 + "#，我给你调一台#b高級机器人#k，"
-            + "顺带一颗能用的青銅之心。");
+            + 需要 + " 块#t" + 零件 + "#，我给你调一台#b高级机器人#k，"
+            + "顺带一颗能用的青铜之心。");
     } else {
         qm.forceStartQuest();
         qm.sendOk("机械兵、未来坦克、机械蜘蛛——哪台拆下来的都行，我这儿不挑料。");
@@ -43,7 +43,7 @@ function end(mode, type, selection) {
         if (selection != 0 && selection != 1) { qm.dispose(); return; }
         选择 = selection;
         qm.sendYesNo("确定要这台#b#t" + (选择 == 0 ? 男款 : 女款) + "##k吗？\r\n"
-            + "#d（心脏等级不可超过机器人等级 +3，青銅之心配高级型刚好）");
+            + "#d（心脏等级不可超过机器人等级 +3，青铜之心配高级型刚好）");
         return;
     }
     qm.gainItem(零件, -需要);

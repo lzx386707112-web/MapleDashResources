@@ -1,5 +1,5 @@
 // NPC 3003154 - 哔美
-// 啾啾島/拉克蘭任務 NPC
+// 啾啾岛/拉克兰任务 NPC
 var status = -1;
 
 function start() {
@@ -27,12 +27,12 @@ if (cm.getQuestStatus(-31325) == 1 && cm.getItemCount(4034950) >= 20 && cm.getIt
             cm.dispose(); return;
         }
  else if (cm.getQuestStatus(-31325) == 0 && cm.getQuestStatus(-31326) == 2) {
-            cm.sendYesNo("逼米要你帶回綠貓魚的結實魚鰭與藍貓魚的酸酸魚鰭。\r\n\r\n#b接受任務：[尋找艾勒溪谷的味道<1>]#k");
+            cm.sendYesNo("逼米要你带回绿猫鱼的结实鱼鳍与蓝猫鱼的酸酸鱼鳍。\r\n\r\n#b接受任务：[寻找艾勒溪谷的味道<1>]#k");
             status = 1325;
             return;
         }
  else if (cm.getQuestStatus(-31324) == 0 && cm.getQuestStatus(-31325) == 2) {
-            cm.sendYesNo("逼米需要拉伊托特的乾巴巴背殼和隊長拉伊托特的軟綿綿背殼。\r\n\r\n#b接受任務：[尋找艾勒溪谷的味道<2>]#k");
+            cm.sendYesNo("逼米需要拉伊托特的干巴巴背壳和队长拉伊托特的软绵绵背壳。\r\n\r\n#b接受任务：[寻找艾勒溪谷的味道<2>]#k");
             status = 1324;
             return;
         }
@@ -41,12 +41,12 @@ if (cm.getQuestStatus(-31325) == 1 && cm.getItemCount(4034950) >= 20 && cm.getIt
     }
     else if (status == 1325) {
         cm.startQuest(-31325);
-        cm.sendOk("任務已接受！");
+        cm.sendOk("任务已接受！");
         cm.dispose();
     }
     else if (status == 1324) {
         cm.startQuest(-31324);
-        cm.sendOk("任務已接受！");
+        cm.sendOk("任务已接受！");
         cm.dispose();
     }
 }

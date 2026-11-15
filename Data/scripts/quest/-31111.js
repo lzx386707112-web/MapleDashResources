@@ -1,14 +1,14 @@
-// -31111 (TMS 34425) - [星光之塔] 華麗出道之後
+// -31111 (TMS 34425) - [星光之塔] 华丽出道之后
 var status = -1;
 function start(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendNext("華麗出道後，就如同大發娛樂的名稱一樣，聲名大噪。出道同時登上音樂節目第一名，出道歌曲不斷刷新紀錄，讓地下１０樓的赫一的辦公室一口氣升到#r星光之塔空中樓層#k。"); }
+    if (status == 0) { qm.sendNext("华丽出道后，就如同大发娱乐的名称一样，声名大噪。出道同时登上音乐节目第一名，出道歌曲不断刷新纪录，让地下１０楼的赫一的办公室一口气升到#r星光之塔空中楼层#k。"); }
     else { qm.forceStartQuest(); qm.dispose(); }
 }
 function end(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendOk("聽到了代表所有團員的蒂亞傳達的感謝。就這樣，#r星光之塔#k赫一的新人女團成功神話傳遍大小街巷。"); }
+    if (status == 0) { qm.sendOk("听到了代表所有团员的蒂亚传达的感谢。就这样，#r星光之塔#k赫一的新人女团成功神话传遍大小街巷。"); }
     else { qm.forceCompleteQuest(); qm.dispose(); }
 }

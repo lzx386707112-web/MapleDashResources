@@ -1,14 +1,14 @@
-// -31085 (TMS 34451) - [阿爾卡娜]小精靈
+// -31085 (TMS 34451) - [阿尔卡娜]小精灵
 var status = -1;
 function start(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendNext("從具威脅性的精靈那裡救出了一隻小精靈，靠近他與他對話吧。"); }
+    if (status == 0) { qm.sendNext("从具威胁性的精灵那里救出了一只小精灵，靠近他与他对话吧。"); }
     else { qm.forceStartQuest(); qm.dispose(); }
 }
 function end(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendOk("根據小精靈所說的，並不是一開始附近就有光之漩渦。這裡肯定是發生了什麼事情。"); }
+    if (status == 0) { qm.sendOk("根据小精灵所说的，并不是一开始附近就有光之漩涡。这里肯定是发生了什么事情。"); }
     else { qm.forceCompleteQuest(); qm.dispose(); }
 }

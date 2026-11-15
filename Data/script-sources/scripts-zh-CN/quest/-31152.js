@@ -1,14 +1,14 @@
-// -31152 (TMS 34384) - [每日任務] 消滅200個卡魯斯
+// -31152 (TMS 34384) - [每日任务] 消灭200个卡鲁斯
 var status = -1;
 function start(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendNext("擊退#b#o8643004:##k#r200隻#k之後去找#b#m450003100:##k的#b#p3003209:##k吧！"); }
+    if (status == 0) { qm.sendNext("击退#b#o8643004:##k#r200只#k之后去找#b#m450003100:##k的#b#p3003209:##k吧！"); }
     else { qm.forceStartQuest(); qm.dispose(); }
 }
 function end(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendOk("#b#p3003209:##k請求的#b#o8643004:##k #r200隻#k已完成擊殺。"); }
+    if (status == 0) { qm.sendOk("#b#p3003209:##k请求的#b#o8643004:##k #r200只#k已完成击杀。"); }
     else { qm.forceCompleteQuest(); qm.dispose(); }
 }

@@ -1,14 +1,14 @@
-// -31080 (TMS 34456) - [阿爾卡娜]賦予草笛生命力2
+// -31080 (TMS 34456) - [阿尔卡娜]赋予草笛生命力2
 var status = -1;
 function start(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendNext("正傳送生命力時，原還在想草笛會不會就這樣暫時的活過來但突然又枯萎了。 難道生命力不足嗎？和小精靈對話吧。"); }
+    if (status == 0) { qm.sendNext("正传送生命力时，原还在想草笛会不会就这样暂时的活过来但突然又枯萎了。 难道生命力不足吗？和小精灵对话吧。"); }
     else { qm.forceStartQuest(); qm.dispose(); }
 }
 function end(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendOk("和剛剛相同，短暫的回覆後馬上又枯萎了。難道無法永遠活過來嗎？"); }
+    if (status == 0) { qm.sendOk("和刚刚相同，短暂的回覆后马上又枯萎了。难道无法永远活过来吗？"); }
     else { qm.forceCompleteQuest(); qm.dispose(); }
 }

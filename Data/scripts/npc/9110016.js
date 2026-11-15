@@ -950,7 +950,7 @@ cm.serverNotice("『高级百宝箱』：恭喜"+ cm.getChar().getName() +"，�
 			cm.gainItem(1312031 , 1);
 			}
 			else if (itemchance == 330) { 
-cm.serverNotice("『高级百宝箱』：恭喜"+ cm.getChar().getName() +"，获得绝世  震雷釘!");
+cm.serverNotice("『高级百宝箱』：恭喜"+ cm.getChar().getName() +"，获得绝世  震雷钉!");
 			cm.gainItem(1322045 , 1);
 			}
 			else if (itemchance == 331) { 

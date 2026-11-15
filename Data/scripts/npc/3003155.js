@@ -1,5 +1,5 @@
 // NPC 3003155 - 小石
-// 啾啾島/拉克蘭任務 NPC
+// 啾啾岛/拉克兰任务 NPC
 var status = -1;
 
 function start() {
@@ -16,23 +16,23 @@ if (cm.getQuestStatus(-31323) == 1 && cm.getItemCount(4034954) >= 20 && cm.getIt
             cm.gainItem(4034954, -20);
             cm.gainItem(4034955, -20);
             cm.completeQuest(-31323);
-            cm.sendOk("完成了藍色鯨魚山的味道<1>！");
+            cm.sendOk("完成了蓝色鲸鱼山的味道<1>！");
             cm.dispose(); return;
         }
  else if (cm.getQuestStatus(-31322) == 1 && cm.getItemCount(4034956) >= 20 && cm.getItemCount(4034957) >= 20) {
             cm.gainItem(4034956, -20);
             cm.gainItem(4034957, -20);
             cm.completeQuest(-31322);
-            cm.sendOk("完成了藍色鯨魚山的味道<2>！");
+            cm.sendOk("完成了蓝色鲸鱼山的味道<2>！");
             cm.dispose(); return;
         }
  else if (cm.getQuestStatus(-31323) == 0 && cm.getQuestStatus(-31324) == 2) {
-            cm.sendYesNo("小石說需要克利拉的翅膀碎片和鳥鯊的翅膀碎片。\r\n\r\n#b接受任務：[尋找藍色鯨魚山的味道<1>]#k");
+            cm.sendYesNo("小石说需要克利拉的翅膀碎片和鸟鲨的翅膀碎片。\r\n\r\n#b接受任务：[寻找蓝色鲸鱼山的味道<1>]#k");
             status = 1323;
             return;
         }
  else if (cm.getQuestStatus(-31322) == 0 && cm.getQuestStatus(-31323) == 2) {
-            cm.sendYesNo("小石最後要求你帶來族長克利拉的結實翅膀碎片和族長鳥鯊的酸甜翅膀碎片。\r\n\r\n#b接受任務：[尋找藍色鯨魚山的味道<2>]#k");
+            cm.sendYesNo("小石最后要求你带来族长克利拉的结实翅膀碎片和族长鸟鲨的酸甜翅膀碎片。\r\n\r\n#b接受任务：[寻找蓝色鲸鱼山的味道<2>]#k");
             status = 1322;
             return;
         }
@@ -41,12 +41,12 @@ if (cm.getQuestStatus(-31323) == 1 && cm.getItemCount(4034954) >= 20 && cm.getIt
     }
     else if (status == 1323) {
         cm.startQuest(-31323);
-        cm.sendOk("任務已接受！");
+        cm.sendOk("任务已接受！");
         cm.dispose();
     }
     else if (status == 1322) {
         cm.startQuest(-31322);
-        cm.sendOk("任務已接受！");
+        cm.sendOk("任务已接受！");
         cm.dispose();
     }
 }

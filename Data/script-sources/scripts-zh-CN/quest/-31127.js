@@ -1,14 +1,14 @@
-// -31127 (TMS 34409) - [星光之塔] …邀請，失敗！？
+// -31127 (TMS 34409) - [星光之塔] …邀请，失败！？
 var status = -1;
 function start(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendNext("總是面帶笑容，擁有能讓人充滿活力的魅力！薩菲一定有成為明星的資質！將大發娛樂公司的名片遞交給#r薩菲#k吧！"); }
+    if (status == 0) { qm.sendNext("总是面带笑容，拥有能让人充满活力的魅力！萨菲一定有成为明星的资质！将大发娱乐公司的名片递交给#r萨菲#k吧！"); }
     else { qm.forceStartQuest(); qm.dispose(); }
 }
 function end(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendOk("給薩菲聆聽赫一的新歌之後，不知道為什麼她的心似乎開始有所動搖…重新在邀請一次看看吧！"); }
+    if (status == 0) { qm.sendOk("给萨菲聆听赫一的新歌之后，不知道为什么她的心似乎开始有所动摇…重新在邀请一次看看吧！"); }
     else { qm.forceCompleteQuest(); qm.dispose(); }
 }

@@ -1,14 +1,14 @@
-// -31072 (TMS 34464) - [阿爾卡娜]再一次
+// -31072 (TMS 34464) - [阿尔卡娜]再一次
 var status = -1;
 function start(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendNext("為了淨化迷路的樹木的精靈必須讓它重回夥伴們的懷抱，擊退周圍邪惡的精靈前望叢林深處吧！"); }
+    if (status == 0) { qm.sendNext("为了净化迷路的树木的精灵必须让它重回伙伴们的怀抱，击退周围邪恶的精灵前望丛林深处吧！"); }
     else { qm.forceStartQuest(); qm.dispose(); }
 }
 function end(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendOk("迷路的樹木的精靈已重回夥伴們的懷抱。"); }
+    if (status == 0) { qm.sendOk("迷路的树木的精灵已重回伙伴们的怀抱。"); }
     else { qm.forceCompleteQuest(); qm.dispose(); }
 }

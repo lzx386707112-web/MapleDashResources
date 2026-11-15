@@ -1,5 +1,5 @@
 // NPC 3003235 - 伊莉莎白
-// 啾啾島/拉克蘭任務 NPC
+// 啾啾岛/拉克兰任务 NPC
 var status = -1;
 
 function start() {
@@ -14,7 +14,7 @@ function action(mode, type, selection) {
     if (status == 0) {
 if (cm.getQuestStatus(34311) == 1) {
             cm.completeQuest(34311);
-            cm.sendOk("伊莉莎白不見了，去調查一下吧。");
+            cm.sendOk("伊莉莎白不见了，去调查一下吧。");
             cm.dispose(); return;
         }
         cm.sendOk("你好！我是伊莉莎白。");

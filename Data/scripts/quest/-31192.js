@@ -1,14 +1,14 @@
-// -31192 (TMS 34344) - [拉契爾恩] 夢中夢
+// -31192 (TMS 34344) - [拉契尔恩] 梦中梦
 var status = -1;
 function start(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendNext("來寫一封信，向聯盟傳達在拉契爾恩獲得的關於奧術之河的情報吧。將寫好的信摺成紙船，然後放在#b拉契爾恩河下游#k的#b平靜水面#k上漂走應該就行了。"); }
+    if (status == 0) { qm.sendNext("来写一封信，向联盟传达在拉契尔恩获得的关于奥术之河的情报吧。将写好的信折成纸船，然后放在#b拉契尔恩河下游#k的#b平静水面#k上漂走应该就行了。"); }
     else { qm.forceStartQuest(); qm.dispose(); }
 }
 function end(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendOk("紙船逆流而上，沿著拉契爾恩的河水漂向了遠方。…這艘紙船真的能到達聯盟嗎？如果能到達那就太好了…"); }
+    if (status == 0) { qm.sendOk("纸船逆流而上，沿著拉契尔恩的河水漂向了远方。…这艘纸船真的能到达联盟吗？如果能到达那就太好了…"); }
     else { qm.forceCompleteQuest(); qm.dispose(); }
 }

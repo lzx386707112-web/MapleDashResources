@@ -1,14 +1,14 @@
-// [反轉城市]上下奔波 (TMS 37618)
+// [反转城市]上下奔波 (TMS 37618)
 var status = -1;
 
 function start(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
     if (status == 0) {
-        qm.sendYesNo("和#rM高塔1#k的#b倍爾#k對話。\r\n\r\n#b接受任務？#k");
+        qm.sendYesNo("和#rM高塔1#k的#b倍尔#k对话。\r\n\r\n#b接受任务？#k");
     } else if (status == 1) {
         qm.forceStartQuest();
-        qm.sendOk("前往#rM高塔頂層#k。");
+        qm.sendOk("前往#rM高塔顶层#k。");
         qm.dispose();
     }
 }
@@ -17,10 +17,10 @@ function end(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
     if (status == 0) {
-        qm.sendYesNo("已移動到#rM高塔頂層#k。\r\n\r\n#b完成任務？#k");
+        qm.sendYesNo("已移动到#rM高塔顶层#k。\r\n\r\n#b完成任务？#k");
     } else if (status == 1) {
         qm.forceCompleteQuest();
-        qm.sendOk("已移動到#rM高塔頂層#k。");
+        qm.sendOk("已移动到#rM高塔顶层#k。");
         qm.dispose();
     }
 }

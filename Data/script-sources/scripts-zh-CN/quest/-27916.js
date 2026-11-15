@@ -1,14 +1,14 @@
-// [反轉城市]在被破壞的都市存活 (TMS 37620)
+// [反转城市]在被破坏的都市存活 (TMS 37620)
 var status = -1;
 
 function start(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
     if (status == 0) {
-        qm.sendYesNo("和#r地下線路避難處#k的#b拉索爾#k對話。\r\n\r\n#b接受任務？#k");
+        qm.sendYesNo("和#r地下线路避难处#k的#b拉索尔#k对话。\r\n\r\n#b接受任务？#k");
     } else if (status == 1) {
         qm.forceStartQuest();
-        qm.sendOk("請依照任務指示前進。");
+        qm.sendOk("请依照任务指示前进。");
         qm.dispose();
     }
 }
@@ -17,10 +17,10 @@ function end(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
     if (status == 0) {
-        qm.sendYesNo("從#b拉索爾#k那裡聽到了#b倍爾#k的事情。\r\n\r\n#b完成任務？#k");
+        qm.sendYesNo("从#b拉索尔#k那里听到了#b倍尔#k的事情。\r\n\r\n#b完成任务？#k");
     } else if (status == 1) {
         qm.forceCompleteQuest();
-        qm.sendOk("從#b拉索爾#k那裡聽到了#b倍爾#k的事情。");
+        qm.sendOk("从#b拉索尔#k那里听到了#b倍尔#k的事情。");
         qm.dispose();
     }
 }

@@ -62,7 +62,7 @@ function action(mode, type, selection) {
 					cm.setHair(hairnew[Math.floor(Math.random() * hairnew.length)]);
 					cm.sendOk("你照镜子看看吧～！");
 				} else {
-					cm.sendNext("痾.... 貌似没有#t5150016#。");
+					cm.sendNext("疴.... 貌似没有#t5150016#。");
 				}
             }
 			if (beauty == 2){
@@ -71,7 +71,7 @@ function action(mode, type, selection) {
 					cm.setHair(haircolor[Math.floor(Math.random() * haircolor.length)]);
 					cm.sendOk("你照镜子看看吧～！");
 				} else {
-					cm.sendNext("痾.... 貌似没有#t5151012#。");
+					cm.sendNext("疴.... 貌似没有#t5151012#。");
 				}
 			}
 		}

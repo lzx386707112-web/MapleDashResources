@@ -1,5 +1,5 @@
-// NPC 3003201 - 不夜城守衛
-// 啾啾島/拉克蘭任務 NPC
+// NPC 3003201 - 不夜城守卫
+// 啾啾岛/拉克兰任务 NPC
 var status = -1;
 
 function start() {
@@ -13,36 +13,36 @@ function action(mode, type, selection) {
 
     if (status == 0) {
 if (cm.getQuestStatus(34305) == 0 && cm.getQuestStatus(34304) == 2) {
-            cm.sendYesNo("與防毒面具會合吧。\r\n\r\n#b接受任務：[會合]#k");
+            cm.sendYesNo("与防毒面具会合吧。\r\n\r\n#b接受任务：[会合]#k");
             status = 4305;
             return;
         }
  else if (cm.getQuestStatus(34306) == 0 && cm.getQuestStatus(34305) == 2) {
-            cm.sendYesNo("前往拉契爾恩市中心吧。\r\n\r\n#b接受任務：[前往市中心]#k");
+            cm.sendYesNo("前往拉契尔恩市中心吧。\r\n\r\n#b接受任务：[前往市中心]#k");
             status = 4306;
             return;
         }
  else if (cm.getQuestStatus(34319) == 0 && cm.getQuestStatus(34318) == 2) {
-            cm.sendYesNo("前往拉契爾恩的舞會場吧。\r\n\r\n#b接受任務：[前往舞會場]#k");
+            cm.sendYesNo("前往拉契尔恩的舞会场吧。\r\n\r\n#b接受任务：[前往舞会场]#k");
             status = 4319;
             return;
         }
-        cm.sendOk("你好！我是不夜城守衛。");
+        cm.sendOk("你好！我是不夜城守卫。");
         cm.dispose();
     }
     else if (status == 4305) {
         cm.startQuest(34305);
-        cm.sendOk("任務已接受！");
+        cm.sendOk("任务已接受！");
         cm.dispose();
     }
     else if (status == 4306) {
         cm.startQuest(34306);
-        cm.sendOk("任務已接受！");
+        cm.sendOk("任务已接受！");
         cm.dispose();
     }
     else if (status == 4319) {
         cm.startQuest(34319);
-        cm.sendOk("任務已接受！");
+        cm.sendOk("任务已接受！");
         cm.dispose();
     }
 }

@@ -1,14 +1,14 @@
-// -31083 (TMS 34453) - [阿爾卡娜]森林之歌
+// -31083 (TMS 34453) - [阿尔卡娜]森林之歌
 var status = -1;
 function start(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendNext("森林樂曲的消失如果是破壞和諧的原因的話……，要不要詳細問一下有關森林樂曲的事情？"); }
+    if (status == 0) { qm.sendNext("森林乐曲的消失如果是破坏和谐的原因的话……，要不要详细问一下有关森林乐曲的事情？"); }
     else { qm.forceStartQuest(); qm.dispose(); }
 }
 function end(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendOk("在聊著讓天然物發出聲音的方法時，出現不知在哪偷聽的風精靈。"); }
+    if (status == 0) { qm.sendOk("在聊著让天然物发出声音的方法时，出现不知在哪偷听的风精灵。"); }
     else { qm.forceCompleteQuest(); qm.dispose(); }
 }

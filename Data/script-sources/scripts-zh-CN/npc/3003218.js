@@ -1,5 +1,5 @@
 // NPC 3003218 - 黑面具
-// 啾啾島/拉克蘭任務 NPC
+// 啾啾岛/拉克兰任务 NPC
 var status = -1;
 
 function start() {
@@ -13,7 +13,7 @@ function action(mode, type, selection) {
 
     if (status == 0) {
 if (cm.getQuestStatus(34322) == 0 && cm.getQuestStatus(34321) == 2) {
-            cm.sendYesNo("在舞會場遇見了黑面具。\r\n\r\n#b接受任務：[黑面具]#k");
+            cm.sendYesNo("在舞会场遇见了黑面具。\r\n\r\n#b接受任务：[黑面具]#k");
             status = 4322;
             return;
         }
@@ -22,7 +22,7 @@ if (cm.getQuestStatus(34322) == 0 && cm.getQuestStatus(34321) == 2) {
     }
     else if (status == 4322) {
         cm.startQuest(34322);
-        cm.sendOk("任務已接受！");
+        cm.sendOk("任务已接受！");
         cm.dispose();
     }
 }

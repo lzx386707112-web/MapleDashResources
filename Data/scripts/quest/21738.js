@@ -35,7 +35,7 @@ function start(mode, type, selection) {
             status--;
         }
 
-        if (status == 0) {  // thanks ZERO傑洛 for noticing this quest shouldn't need a pw -- GMS-like string data thanks to skycombat
+        if (status == 0) {  // thanks ZERO杰洛 for noticing this quest shouldn't need a pw -- GMS-like string data thanks to skycombat
             qm.sendNext("嗯，你有什么事？");
         } else if (status == 1) {
             qm.sendNext("(你告诉了她巨大食人花的事情。)", 3);

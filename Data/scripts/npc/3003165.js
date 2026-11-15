@@ -1,5 +1,5 @@
 // NPC 3003165 - 吃饱的武藤
-// 啾啾島/拉克蘭任務 NPC
+// 啾啾岛/拉克兰任务 NPC
 var status = -1;
 
 function start() {
@@ -14,11 +14,11 @@ function action(mode, type, selection) {
     if (status == 0) {
 if (cm.getQuestStatus(34332) == 1) {
             cm.completeQuest(34332);
-            cm.sendOk("武藤吃飽了！");
+            cm.sendOk("武藤吃饱了！");
             cm.dispose(); return;
         }
  else if (cm.getQuestStatus(34332) == 0 && cm.getQuestStatus(34300) == 2) {
-            cm.sendYesNo("武藤吃飽了！\r\n\r\n#b接受任務：[吃飽的武藤]#k");
+            cm.sendYesNo("武藤吃饱了！\r\n\r\n#b接受任务：[吃饱的武藤]#k");
             status = 4332;
             return;
         }
@@ -27,7 +27,7 @@ if (cm.getQuestStatus(34332) == 1) {
     }
     else if (status == 4332) {
         cm.startQuest(34332);
-        cm.sendOk("任務已接受！");
+        cm.sendOk("任务已接受！");
         cm.dispose();
     }
 }

@@ -1,14 +1,14 @@
-// -31116 (TMS 34420) - [星光之塔] 爭取出道節目
+// -31116 (TMS 34420) - [星光之塔] 争取出道节目
 var status = -1;
 function start(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendNext("峰迴路轉之後，終於成立的大發娛樂的全新女團！現在只差出道了，蒂雅既然已經成為歌手，無法再兼任祕書的工作，準備作業該由誰來進行呢？與#b赫一#k討論看看。"); }
+    if (status == 0) { qm.sendNext("峰回路转之后，终于成立的大发娱乐的全新女团！现在只差出道了，蒂雅既然已经成为歌手，无法再兼任秘书的工作，准备作业该由谁来进行呢？与#b赫一#k讨论看看。"); }
     else { qm.forceStartQuest(); qm.dispose(); }
 }
 function end(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendOk("事前簡訊投票結果，大發娛樂的新人女團獲得壓倒性的第一名，成為'夢想舞台'的主角！大發娛樂的未來要開始大發了嗎？"); }
+    if (status == 0) { qm.sendOk("事前简讯投票结果，大发娱乐的新人女团获得压倒性的第一名，成为'梦想舞台'的主角！大发娱乐的未来要开始大发了吗？"); }
     else { qm.forceCompleteQuest(); qm.dispose(); }
 }

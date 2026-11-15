@@ -1,5 +1,5 @@
 // NPC 3003208 - 露希妲
-// 啾啾島/拉克蘭任務 NPC
+// 啾啾岛/拉克兰任务 NPC
 var status = -1;
 
 function start() {
@@ -19,7 +19,7 @@ function action(mode, type, selection) {
         }
 if (cm.getQuestStatus(34331) == 1) {
             cm.completeQuest(34331);
-            cm.sendOk("與露希妲的最終決戰！");
+            cm.sendOk("与露希妲的最终决战！");
             cm.dispose(); return;
         }
         cm.sendOk("你好！我是露希妲。");

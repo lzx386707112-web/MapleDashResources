@@ -18,7 +18,7 @@
 // 系列 id 就是数组下标，必须与客户端 .titles 节的系列顺序严格一致，不要调整顺序
 // first/last 用于展示该系列的称号风格范围（玄幻 10 档，其余系列上限 8 档）
 var SERIES = [
-    { name: "玄幻", first: "乾元玄阶", last: "无敌大帝" },
+    { name: "玄幻", first: "干元玄阶", last: "无敌大帝" },
     { name: "斗罗", first: "魂师", last: "三级神祇" },
     { name: "龙珠", first: "赛亚人", last: "破坏神位" },
     { name: "火影", first: "学院生徒", last: "六道之力" },

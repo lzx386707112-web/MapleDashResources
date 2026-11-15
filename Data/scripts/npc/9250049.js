@@ -60,7 +60,7 @@ function action(mode, type, selection) {
 					cm.setHair(hairnew[selection]);
 					cm.sendOk("享受！");
 				} else {
-					cm.sendNext("痾...貌似没有#t5150042#");
+					cm.sendNext("疴...貌似没有#t5150042#");
 				}
 			}
 			if (beauty == 2){
@@ -69,7 +69,7 @@ function action(mode, type, selection) {
 					cm.setHair(haircolor[selection]);
 					cm.sendOk("享受！");
 				} else {
-					cm.sendNext("痾...貌似没有#t5151032#");
+					cm.sendNext("疴...貌似没有#t5151032#");
 				}
 			}
 			cm.dispose();

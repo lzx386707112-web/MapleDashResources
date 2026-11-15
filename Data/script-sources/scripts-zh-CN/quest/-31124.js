@@ -3,12 +3,12 @@ var status = -1;
 function start(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendNext("…先把收集到的拿過去吧！得裝作沒看見，但還是不免想著透過筆記得知#b佩里#k有這樣的才能，她似乎也有成為明日之星的資質。"); }
+    if (status == 0) { qm.sendNext("…先把收集到的拿过去吧！得装作没看见，但还是不免想著透过笔记得知#b佩里#k有这样的才能，她似乎也有成为明日之星的资质。"); }
     else { qm.forceStartQuest(); qm.dispose(); }
 }
 function end(mode, type, selection) {
     if (mode <= 0) { qm.dispose(); return; }
     status++;
-    if (status == 0) { qm.sendOk("毫無保留地展現自己的長才不就是明星基本該做的事情嗎？喚醒暴走的佩里，述說關於她的才能。"); }
+    if (status == 0) { qm.sendOk("毫无保留地展现自己的长才不就是明星基本该做的事情吗？唤醒暴走的佩里，述说关于她的才能。"); }
     else { qm.forceCompleteQuest(); qm.dispose(); }
 }

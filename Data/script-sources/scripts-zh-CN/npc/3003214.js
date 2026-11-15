@@ -1,5 +1,5 @@
-// NPC 3003214 - 聲音
-// 啾啾島/拉克蘭任務 NPC
+// NPC 3003214 - 声音
+// 啾啾岛/拉克兰任务 NPC
 var status = -1;
 
 function start() {
@@ -14,10 +14,10 @@ function action(mode, type, selection) {
     if (status == 0) {
 if (cm.getQuestStatus(34309) == 1) {
             cm.completeQuest(34309);
-            cm.sendOk("夢中似乎聽見了什麼聲音…去調查一下吧。");
+            cm.sendOk("梦中似乎听见了什么声音…去调查一下吧。");
             cm.dispose(); return;
         }
-        cm.sendOk("你好！我是聲音。");
+        cm.sendOk("你好！我是声音。");
         cm.dispose();
     }
 }
