@@ -121,7 +121,7 @@ function action(mode, type, selection) {
 
 function showMainMenu() {
     var text = "#e#b潮流前线#k#n\r\n";
-    text += "#d时装（点装）已经搬到商城 → 「時裝」页签，这里只留椅子和其它功能。#k\r\n\r\n";
+    text += "#d时装（点装）已经搬到商城 → 「时装」页签，这里只留椅子和其它功能。#k\r\n\r\n";
     text += "#L0##b椅子#k（每把 " + CHAIR_PRICE + " 点券）#l\r\n";
     text += "#L1##b至高无上·逼王戒#k#l\r\n";
     text += "#L2##b伤害皮肤#k#l\r\n";
