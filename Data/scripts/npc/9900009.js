@@ -75,29 +75,24 @@ function action(mode, type, selection) {
 
     if (stage === "main") {
         if (selection === 0) {
-            cm.dispose();
-            cm.openNpc(9900001, "时装暖暖");
-            return;
-        }
-        if (selection === 1) {
             stage = "chairs";
             currentPage = 0;
             showChairPage();
             return;
         }
-        if (selection === 2) {
+        if (selection === 1) {
             cm.dispose();
             cm.openNpc(9900009, "至高无上·逼王戒");
             return;
         }
-        if (selection === 3) {
+        if (selection === 2) {
             stage = "damageSkins";
             damageSkinPage = 0;
             damageSkinIds = cm.getDamageSkinIds();
             showDamageSkinPage();
             return;
         }
-        if (selection === 4) {
+        if (selection === 3) {
             cm.dispose();
             cm.openNpc(9900009, "坐骑领取");
             return;
@@ -125,12 +120,12 @@ function action(mode, type, selection) {
 }
 
 function showMainMenu() {
-    var text = "#e#b潮流前线#k#n\r\n\r\n";
-    text += "#L0##b时装暖暖#k#l\r\n";
-    text += "#L1##b椅子#k（每把 " + CHAIR_PRICE + " 点券）#l\r\n";
-    text += "#L2##b至高无上·逼王戒#k#l\r\n";
-    text += "#L3##b伤害皮肤#k#l\r\n";
-    text += "#L4##b坐骑领取#k#l";
+    var text = "#e#b潮流前线#k#n\r\n";
+    text += "#d时装（点装）已经搬到商城 → 「時裝」页签，这里只留椅子和其它功能。#k\r\n\r\n";
+    text += "#L0##b椅子#k（每把 " + CHAIR_PRICE + " 点券）#l\r\n";
+    text += "#L1##b至高无上·逼王戒#k#l\r\n";
+    text += "#L2##b伤害皮肤#k#l\r\n";
+    text += "#L3##b坐骑领取#k#l";
     cm.sendSimple(text);
 }
 
