@@ -350,9 +350,7 @@ function action(mode, type, selection) {
             text += `#b#n#v${itemId}# #z${itemId}# `;
             text += `#b#n[背包: #r#n${bagCount}] `;
             text += `#b#n[仓库: #r#n${storeCount}]#b#n\r\n`;
-            if (itemId != 2340000 && itemId != 2049115 && itemId != 2049100) {
-                text += `  #L${i * 2}##b存储#l          `;
-            }
+            text += `  #L${i * 2}##b存储#l          `;
             text += `#L${i * 2 + 1}##b取出#l\r\n\r\n`;
         });
 
@@ -633,9 +631,6 @@ function prepareBatchStoreAllScroll() {
     // 处理高级卷轴（type=5）
     let hasAdvancedScroll = false;
     itemlist5.forEach(itemId => {
-        if (itemId === 2340000 || itemId === 2049115 || itemId === 2049100) {
-            return;
-        }
         const bagCount = player.getItemQuantity(itemId, false);
         if (bagCount <= 0) return;
 
