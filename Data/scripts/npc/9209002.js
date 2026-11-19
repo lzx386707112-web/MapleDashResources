@@ -48,7 +48,7 @@ function action(mode, type, selection) {
 
         if (status == 0) {
             var greeting = "你好,我是兑换商人!#b\r\n";
-            // greeting += "#L0#购买三倍经验卡(永久)#l\r\n";
+            greeting += "#L0#购买双倍经验卡(永久)#l\r\n";
             // greeting += "#L8#购买双倍爆率卡(永久)#l\r\n";
             greeting += "#L1#购买百宝券#l\r\n";
             greeting += "#L6#购买高级百宝券#l\r\n";
@@ -62,7 +62,7 @@ function action(mode, type, selection) {
             selected = selection;
             var text;
             if (selection == 0) {
-                text = "每20000点券可以交换1三倍经验卡2小时(实际为永久),需要多少个?\r\n#r注意：购买前请扔掉限时的该物品#k";
+                text = "每10000点券可以交换1双倍经验卡(永久),需要多少个?\r\n#r注意：购买前请扔掉限时的该物品#k";
             } else if (selection == 8) {
                 text = "每10000点券可以交换1双倍爆率卡一天(实际为永久),需要多少个?\r\n#r注意：购买前请扔掉限时的该物品#k";
             } else if (selection == 1) {
@@ -86,7 +86,7 @@ function action(mode, type, selection) {
             num = selection;
             var text;
             if (selected == 0) {
-                text = "确定要使用" + (20000 * num) + "点券交换" + num + "三倍经验卡2小时(实际为永久)吗?";
+                text = "确定要使用" + (10000 * num) + "点券交换" + num + "双倍经验卡(永久)吗?";
             } else if(selected == 8){
                 text = "确定要使用" + (10000 * num) + "点券交换" + num + "双倍爆率卡一天(实际为永久)吗?";
             } else if (selected == 1) {
@@ -107,9 +107,9 @@ function action(mode, type, selection) {
             cm.sendYesNo(text);
         } else {
             if (selected == 0) {
-                if (cm.getPlayer().getCashShop().getCash(1) >= 20000 * num) {
-                    cm.getPlayer().getCashShop().gainCash(1, -20000 * num);
-                    cm.gainItem(5211060,num);
+                if (cm.getPlayer().getCashShop().getCash(1) >= 10000 * num) {
+                    cm.getPlayer().getCashShop().gainCash(1, -10000 * num);
+                    cm.gainItem(5211047,num);
                     cm.sendOk("交易成功,请到背包确认");
                 } else {
                     cm.sendOk("交易失败,你没有足够的点券");
