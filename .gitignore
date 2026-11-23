@@ -7,3 +7,9 @@
 # 本地临时备份目录
 .backup/
 .bake-backup/
+
+# 客户端合并用的完整大文件（版本库以 part1/part2 分片保存）
+Data/Etc/_Canvas/BossLucid.img
+
+# 打包工具生成的清单文件
+MapleDashResources.patch.manifest.json
