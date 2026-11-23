@@ -3,3 +3,6 @@
 
 # WorkBuddy 内部目录（记忆/项目数据，不应进版本库）
 .workbuddy/
+
+# 本地临时备份目录
+.backup/
