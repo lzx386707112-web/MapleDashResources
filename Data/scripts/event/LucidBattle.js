@@ -1,312 +1,110 @@
-var isPq = true;
+/**
+ * 露希妲远征（TMS 282 复刻）
+ *
+ * 战斗本体全部由原生侧 `org.gms.server.life.LucidBattle282` 驱动
+ * （Assets/Scripts/Field/NativeLucidBattle282.cs）：
+ *   走廊 450004100 → P1 450004150（lusi 骨架开场 9167ms）
+ *   → 过场 450004200（butterfly2 骨架 4000ms）→ P2 450004250 → 奖励 450004300，
+ *   蝴蝶累积/爆发、喇叭銅像、彩繪玻璃、BombObject、Fury（困难）、最後的音樂盒
+ *   全部按 Etc/BossLucid.img 与服务端 world/boss/Lucid.java 的口径走。
+ *
+ * 这个脚本只负责远征队实例的生命周期：建实例、放人进来、超时/退出收尾。
+ */
+
 var minPlayers = 1, maxPlayers = 30;
 var minLevel = 220, maxLevel = 255;
-var entryMap = 450004150;
-var phaseTwoMap = 450004250;
-var exitMap = 450004000;
-var recruitMap = 450004000;
-var eventTime = 30;
-var maxDeaths = 50;
-var flowerExplosionInitialDelay = 2000;
-var flowerExplosionInterval = 2000;
-var flowerExplosionDamageDelay = 1080;
-var flowerExplosionDamagePercent = 35;
-var flowerExplosionEffects = [
-    "customSkill/lucid/flowerExplosionVideoLayer",
-    "customSkill/lucid/flowerExplosion1VideoLayer",
-    "customSkill/lucid/flowerExplosion2VideoLayer",
-    "customSkill/lucid/flowerExplosion3VideoLayer"
-];
-var fallRecoveryPollInterval = 100;
-var fallRecoveryY = 180;
-var furySuccessMoveDelay = 5000;
 
-const maxLobbies = 1;
-const LifeFactory = Java.type('org.gms.server.life.LifeFactory');
-const LucidBossCompat = Java.type('org.gms.server.life.LucidBossCompat');
-const PacketCreator = Java.type('org.gms.util.PacketCreator');
-const AbstractAnimatedMapObject = Java.type('org.gms.server.maps.AbstractAnimatedMapObject');
-const Point = Java.type('java.awt.Point');
-const ThreadLocalRandom = Java.type('java.util.concurrent.ThreadLocalRandom');
+var entryMap = 450004100;   // 简单难度的进场走廊；实际落地图由 native 按难度决定
+var exitMap = 450004000;    // 露希妲入口（NPC 3003208 所在图）
+var minMapId = 450004100, maxMapId = 450004900;
+var eventTime = 30;         // 分钟
 
-var eventMaps = [entryMap, phaseTwoMap];
+const LucidBattle = Java.type('org.gms.server.life.LucidBattle282');
 
 function init() {
     setEventRequirements();
 }
 
 function getMaxLobbies() {
-    return maxLobbies;
-}
-
-function getEventMaps() {
-    var ArrayList = Java.type('java.util.ArrayList');
-    var maps = new ArrayList();
-    for (var i = 0; i < eventMaps.length; i++) {
-        maps.add(eventMaps[i]);
-    }
-    return maps;
+    return 1;
 }
 
 function setEventRequirements() {
-    em.setProperty("party", "\r\n   Players: 1 ~ 30\r\n   Level: 220 ~ 255\r\n   Time limit: 30 minutes\r\n   Death limit: 50 per character");
-}
-
-function setEventExclusives(eim) {
-    eim.setExclusiveItems([]);
-}
-
-function setEventRewards(eim) {
-    eim.setEventRewards(1, [], []);
-    eim.setEventClearStageExp([]);
-    eim.setEventClearStageMeso([]);
+    var reqStr = "";
+    reqStr += "\r\n   组队人数: " + minPlayers + " ~ " + maxPlayers;
+    reqStr += "\r\n   等级要求: " + minLevel + " ~ " + maxLevel;
+    reqStr += "\r\n   时间限制: " + eventTime + " 分钟";
+    reqStr += "\r\n   难度: 简单 / 普通 / 困难（队长在开始前选）";
+    em.setProperty("party", reqStr);
 }
 
 function setup(channel) {
     var eim = em.newInstance("LucidBattle" + channel);
-    eim.setProperty("canJoin", "1");
-    eim.setIntProperty("phase", 1);
-    eim.setIntProperty("flowerExplosionVariant", -1);
-    for (var i = 0; i < eventMaps.length; i++) {
-        var map = eim.getInstanceMap(eventMaps[i]);
-        map.resetPQ(1);
-        map.killAllMonsters();
-    }
-    var phaseOneMap = eim.getInstanceMap(entryMap);
-    var phaseOneBoss = LifeFactory.getMonster(8880140);
-    phaseOneMap.spawnMonsterOnGroundBelow(phaseOneBoss, new Point(1000, 0));
-    LucidBossCompat.startPhase(phaseOneMap, phaseOneBoss, 1);
-    eim.schedule("castFlowerExplosion", flowerExplosionInitialDelay);
-    eim.schedule("recoverFallenPlayers", fallRecoveryPollInterval);
-    eim.startEventTimer(eventTime * 60000);
-    setEventRewards(eim);
-    setEventExclusives(eim);
+    eim.setProperty("canJoin", 1);
+    // 难度由 NPC 3003208（scripts/BeiDouSpecial/露希妲远征.js）在 startInstance 之前
+    // 写进事件管理器属性；没写就按普通（1）。
+    var difficulty = em.getProperty("difficulty");
+    if (difficulty == null) difficulty = "1";
+    eim.setProperty("difficulty", difficulty);
     return eim;
 }
 
-function afterSetup(eim) {}
+function afterSetup(eim) {
+    eim.startEventTimer(eventTime * 60000);
+}
 
 function playerEntry(eim, player) {
-    var id = player.getId();
-    if (eim.getIntProperty("eliminated_" + id) == 1) {
+    var difficulty = eim.getIntProperty("difficulty");
+    if (difficulty < 0 || difficulty > 2) difficulty = 1;
+    LucidBattle.begin(difficulty);
+    eim.dropMessage(5, "[远征队] 难度：" + modeName(difficulty) + "，进入梦境。");
+}
+
+function changedMap(eim, player, mapid) {
+    if (mapid < minMapId || mapid > maxMapId) {
         eim.unregisterPlayer(player);
-        player.changeMap(exitMap, 0);
-        player.dropMessage(5, "露希妲远征死亡次数已达到 50 次。");
-        return;
+        eim.dropMessage(5, "[远征队] 你离开了露希妲的战斗场地。");
     }
-    if (eim.getIntProperty("joined_" + id) == 0) {
-        for (var i = 0; i < eventMaps.length; i++) {
-            player.resetEnteredScript(eventMaps[i]);
-        }
-        eim.setIntProperty("death_" + id, 0);
-        eim.setIntProperty("joined_" + id, 1);
-    }
-    var targetMapId = eim.getIntProperty("phase") >= 2 ? phaseTwoMap : entryMap;
-    var map = eim.getInstanceMap(targetMapId);
-    player.changeMap(map, map.getPortal(0));
 }
 
-function scheduledTimeout(eim) {
-    end(eim);
-}
-
-function isEventMap(mapId) {
-    return mapId == entryMap || mapId == phaseTwoMap;
-}
-
-function changedMap(eim, player, mapId) {
-    if (isEventMap(mapId)) {
-        return;
-    }
-    eim.unregisterPlayer(player);
-    disposeIfEmpty(eim);
-}
-
-function changedLeader(eim, leader) {}
 function playerDead(eim, player) {}
-
-function playerRevive(eim, player) {
-    var mapId = player.getMapId();
-    if (!isEventMap(mapId)) {
-        return true;
-    }
-    var deathKey = "death_" + player.getId();
-    var deaths = eim.getIntProperty(deathKey) + 1;
-    eim.setIntProperty(deathKey, deaths);
-    if (deaths >= maxDeaths) {
-        eim.setIntProperty("eliminated_" + player.getId(), 1);
-        player.dropMessage(5, "死亡次数达到 50 次，将返回恶梦时间塔。");
-        player.respawn(eim, exitMap);
-        disposeIfEmpty(eim);
-        return false;
-    }
-
-    player.cancelAllBuffs(false);
-    player.updateHp(50);
-    player.setStance(0);
-    player.enableActions();
-    var reviveMap = eim.getInstanceMap(mapId);
-    reviveMap.movePlayer(player, reviveMap.getPortal(0).getPosition());
-    var reviveMovement = PacketCreator.movePlayer(
-        player.getId(), player.getIdleMovement(),
-        AbstractAnimatedMapObject.IDLE_MOVEMENT_PACKET_LENGTH);
-    player.sendPacket(reviveMovement);
-    reviveMap.broadcastMessage(player, reviveMovement, false);
-    player.dropMessage(5, "露希妲远征死亡次数：" + deaths + "/" + maxDeaths);
-    return false;
-}
-
-function playerDisconnected(eim, player) {
-    eim.unregisterPlayer(player);
-    disposeIfEmpty(eim);
-}
-
-function playerUnregistered(eim, player) {}
+function playerRevive(eim, player) {}
+function changedLeader(eim, leader) {}
 function leftParty(eim, player) {}
 function disbandParty(eim) {}
+function allMonstersDead(eim) {}
+function killed(eim, player, mobid) {}
 
+// 只有露希妲本体与惡夢花算分，其余小怪不给积分。
 function monsterValue(eim, mobId) {
-    return mobId == 8880140 || mobId == 8880141 || mobId == 8880152 ? 1 : 0;
-}
-
-function castFlowerExplosion(eim) {
-    if (eim.isEventDisposed() || eim.getIntProperty("phase") != 1) {
-        return;
-    }
-    var map = eim.getInstanceMap(entryMap);
-    var boss = map.getMonsterById(8880140);
-    if (boss == null || !boss.isAlive()) {
-        return;
-    }
-    map.dropMessage(5, "[Lucid] 花朵爆炸");
-    var previous = eim.getIntProperty("flowerExplosionVariant");
-    var variant;
-    if (previous < 0 || previous >= flowerExplosionEffects.length) {
-        variant = ThreadLocalRandom.current().nextInt(flowerExplosionEffects.length);
-    } else {
-        variant = ThreadLocalRandom.current().nextInt(flowerExplosionEffects.length - 1);
-        if (variant >= previous) {
-            variant++;
-        }
-    }
-    eim.setIntProperty("flowerExplosionVariant", variant);
-    map.broadcastMessage(PacketCreator.showEffect(flowerExplosionEffects[variant]));
-    eim.schedule("damageFlowerExplosion", flowerExplosionDamageDelay);
-    eim.schedule("castFlowerExplosion", flowerExplosionInterval);
-}
-
-function damageFlowerExplosion(eim) {
-    if (eim.isEventDisposed() || eim.getIntProperty("phase") != 1) {
-        return;
-    }
-    var map = eim.getInstanceMap(entryMap);
-    var boss = map.getMonsterById(8880140);
-    if (boss == null || !boss.isAlive()) {
-        return;
-    }
-    var players = eim.getPlayers();
-    for (var i = 0; i < players.size(); i++) {
-        var player = players.get(i);
-        if (!player.isAlive() || player.getMap() != map) {
-            continue;
-        }
-        var damage = Math.max(
-            1, Math.floor(player.getMaxHp() * flowerExplosionDamagePercent / 100));
-        player.addHP(-damage);
-        map.broadcastMessage(
-            player,
-            PacketCreator.damagePlayer(
-                0, boss.getId(), player.getId(), damage, 0, 0,
-                false, 0, true, boss.getObjectId(), 0, 0),
-            false);
+    switch (mobId) {
+        case 8880140: case 8880141: case 8880142:
+        case 8880150: case 8880151: case 8880155:
+        case 8880152: case 8880153: case 8880154:
+        case 8880166: case 8880158:
+            return 1;
+        default:
+            return 0;
     }
 }
 
-function recoverFallenPlayers(eim) {
-    if (eim.isEventDisposed()) {
-        return;
-    }
-    if (eim.getIntProperty("phase") >= 2) {
-        var map = eim.getInstanceMap(phaseTwoMap);
-        var destination = map.getPortal(3);
-        if (destination != null) {
-            var players = eim.getPlayers();
-            for (var i = 0; i < players.size(); i++) {
-                var player = players.get(i);
-                if (player.isAlive() && player.getMap() == map
-                        && player.getPosition().y >= fallRecoveryY) {
-                    player.changeMap(map, destination);
-                }
-            }
-        }
-    }
-    eim.schedule("recoverFallenPlayers", fallRecoveryPollInterval);
-}
-
-function monsterKilled(mob, eim, hasKiller) {
-    if (!hasKiller) {
-        return;
-    }
-    if (mob.getId() == 8880140 && eim.getIntProperty("phase") == 1) {
-        eim.setIntProperty("phase", 2);
-        eim.dropMessage(5, "[远征队] 露希妲逃进了坍塌的时间塔！");
-        eim.schedule("advanceToPhaseTwo", 2500);
-    } else if (mob.getId() == 8880152 && !eim.isEventCleared()) {
-        eim.setIntProperty("phase", 4);
-        eim.setProperty("canJoin", "0");
-        LucidBossCompat.finishFurySuccess(eim.getInstanceMap(phaseTwoMap));
-        eim.schedule("completeFurySuccess", furySuccessMoveDelay);
-    }
-}
-
-function advanceToPhaseTwo(eim) {
-    var phaseOneMap = eim.getInstanceMap(entryMap);
-    var targetMap = eim.getInstanceMap(phaseTwoMap);
-    LucidBossCompat.stop(phaseOneMap);
-    phaseOneMap.killAllMonsters();
-    targetMap.killAllMonsters();
-    var phaseTwoBoss = LifeFactory.getMonster(8880141);
-    targetMap.spawnMonsterOnGroundBelow(phaseTwoBoss, new Point(600, -100));
-    LucidBossCompat.startPhase(targetMap, phaseTwoBoss, 2);
-    var players = eim.getPlayers();
-    for (var i = 0; i < players.size(); i++) {
-        players.get(i).changeMap(targetMap, targetMap.getPortal(0));
-    }
-}
-
-function allMonstersDead(eim, hasKiller) {}
-function monsterRevive(eim, mob) {
-    if (mob.getId() == 8880152) {
-        eim.setIntProperty("phase", 3);
-        LucidBossCompat.startPhase(eim.getInstanceMap(phaseTwoMap), mob, 3);
-    } else if (mob.getId() == 8880153) {
-        LucidBossCompat.protectFurySuccessMob(mob);
-    }
-}
-
-function completeFurySuccess(eim) {
-    if (!eim.isEventDisposed() && !eim.isEventCleared()
-            && eim.getIntProperty("phase") == 4) {
-        clearPQ(eim);
-    }
-}
-
-function clearPQ(eim) {
-    stopLucidCompat(eim);
-    eim.stopEventTimer();
-    eim.setProperty("canJoin", "0");
-    eim.setEventCleared();
-    eim.dropMessage(5, "[远征队] 露希妲已被击败，地图将在 5 分钟后关闭。");
-    eim.startEventTimer(300000);
-}
+function monsterKilled(mob, eim) {}
 
 function playerExit(eim, player) {
     eim.unregisterPlayer(player);
     player.changeMap(exitMap, 0);
 }
 
+function playerDisconnected(eim, player) {
+    playerExit(eim, player);
+}
+
+function scheduledTimeout(eim) {
+    end(eim);
+}
+
 function end(eim) {
-    stopLucidCompat(eim);
+    LucidBattle.stop();
     var players = eim.getPlayers();
     for (var i = 0; i < players.size(); i++) {
         playerExit(eim, players.get(i));
@@ -314,19 +112,12 @@ function end(eim) {
     eim.dispose();
 }
 
-function disposeIfEmpty(eim) {
-    if (eim.getPlayers().isEmpty()) {
-        stopLucidCompat(eim);
-        eim.dispose();
-    }
+function dispose(eim) {
+    LucidBattle.stop();
 }
 
-function stopLucidCompat(eim) {
-    for (var i = 0; i < eventMaps.length; i++) {
-        LucidBossCompat.stop(eim.getInstanceMap(eventMaps[i]));
-    }
+function modeName(difficulty) {
+    if (difficulty === 0) return "简单";
+    if (difficulty === 2) return "困难";
+    return "普通";
 }
-
-function giveRandomEventReward(eim, player) {}
-function cancelSchedule() {}
-function dispose(eim) {}

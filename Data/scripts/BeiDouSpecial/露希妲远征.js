@@ -114,8 +114,11 @@ function action(mode, type, selection) {
                 cm.dispose();
                 return;
             }
-            cm.sendOk("远征即将开始，首先进入梦幻森林。");
-            status = 4;
+            cm.sendSimple("#e#b<露希妲>#k#n\r\n\r\n选择本次挑战的难度：\r\n\r\n"
+                + "#L1#简单模式（Lv.220，HP 76,563,532）#l\r\n"
+                + "#L2#普通模式（Lv.220，HP 170,141,183）#l\r\n"
+                + "#L3#困难模式（Lv.220，HP 340,282,366，追加「愤怒」阶段）#l");
+            status = 7;
         } else if (selection == 3) {
             player.getMap().broadcastMessage(PacketCreator.serverNotice(6, expedition.getLeader().getName() + " 解散了露希妲远征队。"));
             cm.endExpedition(expedition);
@@ -131,6 +134,26 @@ function action(mode, type, selection) {
             return;
         }
         cm.dispose();
+    } else if (status == 7) {
+        // 难度选择：0 简单 / 1 普通 / 2 困难。写进事件管理器的属性，
+        // event/LucidBattle.js 的 playerEntry 读出来交给 LucidBattle282.begin()。
+        expedition = cm.getExpedition(exped);
+        em = cm.getEventManager(eventName);
+        if (expedition == null || em == null) {
+            cm.sendOk("远征队或事件状态已失效，请重新进入。");
+            cm.dispose();
+            return;
+        }
+        if (selection < 1 || selection > 3) {
+            cm.sendSimple(list);
+            status = 2;
+            return;
+        }
+        em.setProperty("difficulty", String(selection - 1));
+        // 难度定完必须立刻接着走启动分支：sendOk 之后对话就结束了，脚本实例被销毁，
+        // 再点 NPC 会从 status=0 重新开始，status=4 的 startInstance 永远到不了。
+        status = 4;
+        action(1, 0, 0);
     } else if (status == 6) {
         expedition = cm.getExpedition(exped);
         if (expedition == null) {
