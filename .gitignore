@@ -6,3 +6,4 @@
 
 # 本地临时备份目录
 .backup/
+.bake-backup/
