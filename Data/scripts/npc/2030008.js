@@ -33,6 +33,8 @@ var status;
 var em;
 var selectedType;
 var gotAllDocs;
+var skipCost = 20000000;
+var paidStage = -1;
 
 function start() {
     status = -1;
@@ -78,9 +80,12 @@ function action(mode, type, selection) {
         }
 
         if (status == 0) {
-            cm.sendSimple("#e#b<组队任务：扎昆战役>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n小心，古老的力量并未被遗忘... #b\r\n#L0#进入未知的死亡矿井（第1阶段）#l\r\n#L1#面对熔岩之息（第2阶段）#l\r\n#L2#锻造火眼（第3阶段）#l");
+            cm.sendSimple("#e#b<组队任务：扎昆战役>\r\n#k#n" + em.getProperty("party") + "\r\n\r\n小心，古老的力量并未被遗忘... #b\r\n#L0#进入未知的死亡矿井（第1阶段）#l\r\n#L1#面对熔岩之息（第2阶段）#l\r\n#L2#锻造火眼（第3阶段）#l\r\n#L3#花2000万金币完成第1阶段#l\r\n#L4#花2000万金币完成第3阶段#l");
         } else if (status == 1) {
-            if (selection == 0) {
+            if (selection == 3 || selection == 4) {
+                paidStage = selection;
+                cm.sendYesNo("是否花费2000万金币完成第" + (selection == 3 ? "1" : "3") + "阶段？");
+            } else if (selection == 0) {
                 if (cm.getParty() == null) {
                     cm.sendOk("只有当你加入一个队伍时，你才能参加派对任务。");
                     cm.dispose();
@@ -130,6 +135,28 @@ function action(mode, type, selection) {
                     cm.dispose();
                 }
             }
+        } else if (status == 2 && paidStage != -1) {
+            var reward = paidStage == 3 ? 4031061 : 4001017;
+            var quantity = paidStage == 3 ? 1 : 5;
+            if (paidStage == 3 && cm.haveItem(4031061)) {
+                cm.sendOk("你已经有第一阶段的完成凭证了。");
+            } else if (paidStage == 4 && (!cm.haveItem(4031061) || !cm.haveItem(4031062))) {
+                cm.sendOk("请先完成第一、第二阶段，并带上两份完成凭证。");
+            } else if (cm.getMeso() < skipCost) {
+                cm.sendOk("你没有足够的金币，需要2000万金币。");
+            } else if (!cm.canHold(reward, quantity)) {
+                cm.sendOk("请先腾出背包空间。");
+            } else {
+                cm.gainMeso(-skipCost);
+                if (paidStage == 4) {
+                    cm.completeQuest(100201);
+                    cm.gainItem(4031061, -1);
+                    cm.gainItem(4031062, -1);
+                }
+                cm.gainItem(reward, quantity);
+                cm.sendOk(paidStage == 3 ? "第一阶段已完成，请继续第二阶段。" : "第三阶段已完成，你已获得5个火眼，可以挑战扎昆了。");
+            }
+            cm.dispose();
         } else if (status == 2) {
             cm.warp(280020000, 0);
             cm.dispose();

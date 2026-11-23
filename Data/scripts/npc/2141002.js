@@ -26,7 +26,7 @@ function action(mode, type, selection) {
         }
 
         var eim = cm.getEventInstance();
-        if (!eim.isEventCleared()) {
+        if (eim == null || !eim.isEventCleared()) {
             if (status == 0) {
                 cm.sendYesNo("你现在想出去吗？");
             } else if (status == 1) {

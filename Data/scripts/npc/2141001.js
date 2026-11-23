@@ -33,7 +33,7 @@ var player;
 var em;
 const ExpeditionType = Java.type('org.gms.server.expeditions.ExpeditionType');
 var exped = ExpeditionType.PINKBEAN;
-var expedName = "诸神的黄昏";
+var expedName = "PinkBean";
 var expedBoss = "品克缤";
 var expedMap = "诸神的黄昏";
 
@@ -57,11 +57,14 @@ function action(mode, type, selection) {
             return;
         }
 
+        if (em == null) {
+            cm.sendOk("品克缤远征暂时无法开启，请稍后重试。");
+            cm.dispose();
+            return;
+        }
+
         if (status == 0) {
-            if (player.getLevel() < exped.getMinLevel() || player.getLevel() > exped.getMaxLevel()) { //Don't fit requirement, thanks Conrad
-                cm.sendOk("您不符合与" + expedBoss + "战斗的条件！");
-                cm.dispose();
-            } else if (expedition == null) { //Start an expedition
+            if (expedition == null) {
                 cm.sendSimple("#e#b<远征：" + expedName + ">\r\n#k#n" + em.getProperty("party") + "\r\n\r\n你想组建一个团队来挑战 #r" + expedBoss + "#k 吗？\r\n#b#L1#让我们开始吧！#l\r\n\#L2#不，我想再等一会儿...#l");
                 status = 1;
             } else if (expedition.isLeader(player)) { //If you're the leader, manage the exped
@@ -83,7 +86,7 @@ function action(mode, type, selection) {
             } else if (expedition.isInProgress()) { //Only if the expedition is in progress
                 if (expedition.contains(player)) { //If you're registered, warp you in
                     var eim = em.getInstance(expedName + player.getClient().getChannel());
-                    if (eim.getIntProperty("canJoin") == 1) {
+                    if (eim != null && eim.getIntProperty("canJoin") == 1) {
                         eim.registerPlayer(player);
                     } else {
                         cm.sendOk("你的远征队已经开始对抗" + expedBoss + "的战斗。让我们为这些勇敢的灵魂祈祷。");

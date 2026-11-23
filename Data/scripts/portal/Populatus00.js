@@ -26,27 +26,18 @@ function enter(pi) {
     if (!((pi.isQuestStarted(6361) && pi.haveItem(4031870, 1)) || (pi.isQuestCompleted(6361) && !pi.isQuestCompleted(6363)))) {
         var em = pi.getEventManager("PapulatusBattle");
 
-        if (pi.getParty() == null) {
-            pi.playerMessage(5, "你当前未加入队伍，请创建队伍后再挑战BOSS。");
+        if (em == null) {
+            pi.playerMessage(5, "闹钟战斗暂时无法开启，请稍后重试。");
             return false;
-        } else if (!pi.isLeader()) {
-            pi.playerMessage(5, "你的队伍必须由队长进入传送门才能开始战斗。");
-            return false;
-        } else {
-            var eli = em.getEligibleParty(pi.getParty());
-            if (eli.size() > 0) {
-                if (!em.startInstance(pi.getParty(), pi.getPlayer().getMap(), 1)) {
-                    pi.playerMessage(5, "你的队伍必须由队长进入传送门才能开始战斗。");
-                    return false;
-                }
-            } else {  //this should never appear
-                pi.playerMessage(5, "你暂时无法开始这场战斗，可能是因为队伍人数不符合要求、部分队员未满足挑战条件或不在当前地图。若组队遇到困难，请尝试使用队伍搜索功能。");
-                return false;
-            }
-
-            pi.playPortalSound();
-            return true;
         }
+        var player = pi.getPlayer();
+        if (!em.startInstance(-1, player, player, 1)) {
+            pi.playerMessage(5, "闹钟战斗正在进行中，请稍后再试。");
+            return false;
+        }
+
+        pi.playPortalSound();
+        return true;
     } else {
         pi.playPortalSound();
         pi.warp(922020300, 0);

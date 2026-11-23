@@ -1,5 +1,4 @@
 function enter(pi) {
-    pi.playPortalSound();
-    pi.warp(211070100, 0);
+    pi.openNpc(2161005, "VanLeonEntrance");
     return true;
 }

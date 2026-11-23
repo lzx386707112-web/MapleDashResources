@@ -266,7 +266,7 @@ function monsterKilled(mob, eim) {
                 var iid = 4001193;
                 const Item = Java.type('org.gms.client.inventory.Item');
                 var itemObj = new Item(iid, 0, 1);
-                var mapObj = eim.getMapFactory().getMap(270050100);
+                var mapObj = eim.getMapInstance(270050100);
                 var reactObj = mapObj.getReactorById(2708000);
                 var dropper = eim.getPlayers().get(0);
                 mapObj.spawnItemDrop(dropper, dropper, itemObj, reactObj.getPosition(), true, true);
