@@ -30,6 +30,7 @@ function start() {
 
 function levelBoss(selection) {
     if (selection == LUCID_EXPEDITION_SELECTION) {
+        cm.getPlayer().saveLocation("BOSSPQ");
         cm.warp(450004000, 0);
         cm.dispose();
         return;
