@@ -1,5 +1,5 @@
 var pets = [
-    {id: 5000393, qty: 1, time: 1440 * 90, price: 6000},//
+
     {id: 5000007, qty: 1, time: 1440 * 90, price: 6000},//小黑猪
     {id: 5000008, qty: 1, time: 1440 * 90, price: 6000},//熊猫
     {id: 5000009, qty: 1, time: 1440 * 90, price: 6000},//恐龙王子
@@ -16,7 +16,7 @@ var pets = [
     {id: 5000040, qty: 1, time: 1440 * 90, price: 6000},//鬼精灵
     {id: 5000041, qty: 1, time: 1440 * 90, price: 6000},//雪娃娃
     {id: 5000043, qty: 1, time: 1440 * 90, price: 6000},//刺猬
-    {id: 5000044, qty: 1, time: 1440 * 90, price: 6000},//橙色老虎
+
     {id: 5000048, qty: 1, time: 1440 * 90, price: 6000},//机器人娃娃
     {id: 5000049, qty: 1, time: 1440 * 90, price: 6000},//机器人
     {id: 5000050, qty: 1, time: 1440 * 90, price: 6000},//机器人
@@ -24,18 +24,18 @@ var pets = [
     {id: 5000052, qty: 1, time: 1440 * 90, price: 6000},//机器人
     {id: 5000053, qty: 1, time: 1440 * 90, price: 6000},//机器人猩猩
     {id: 5000055, qty: 1, time: 1440 * 90, price: 6000},//水晶鹿
-    {id: 5000056, qty: 1, time: 1440 * 90, price: 6000},//巨嘴鸟
+
     {id: 5000058, qty: 1, time: 1440 * 90, price: 6000},//潜水玩具鸭
     {id: 5000064, qty: 1, time: 1440 * 90, price: 6000},//黄金猪
     {id: 5000067, qty: 1, time: 1440 * 90, price: 6000},//淘气外星人
     {id: 5000068, qty: 1, time: 1440 * 90, price: 6000},//黑熊
-    {id: 5000069, qty: 1, time: 1440 * 90, price: 6000},//罗伯
+
     {id: 5000070, qty: 1, time: 1440 * 90, price: 6000},//米尔
     {id: 5000071, qty: 1, time: 1440 * 90, price: 6000},//乐儿
     {id: 5000072, qty: 1, time: 1440 * 90, price: 6000},//臭鼬
-    {id: 5000075, qty: 1, time: 1440 * 90, price: 6000},//小象
-    {id: 5000076, qty: 1, time: 1440 * 90, price: 6000},//柯基
-    {id: 5000077, qty: 1, time: 1440 * 90, price: 6000},//波斯猫
+
+
+
     {id: 5000081, qty: 1, time: 1440 * 90, price: 6000},//飞行小鲸鱼
     {id: 5000083, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000084, qty: 1, time: 1440 * 90, price: 6000},//
@@ -51,14 +51,14 @@ var pets = [
     {id: 5000094, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000095, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000096, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000098, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000100, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000101, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000102, qty: 1, time: 1440 * 90, price: 6000},//
+
+
+
+
     {id: 5000103, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000112, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000113, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000137, qty: 1, time: 1440 * 90, price: 6000},//
+
     {id: 5000152, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000171, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000191, qty: 1, time: 1440 * 90, price: 6000},//
@@ -71,8 +71,8 @@ var pets = [
     {id: 5000205, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000206, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000207, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000208, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000209, qty: 1, time: 1440 * 90, price: 6000},//
+
+
     {id: 5000210, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000211, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000212, qty: 1, time: 1440 * 90, price: 6000},//
@@ -83,7 +83,7 @@ var pets = [
     {id: 5000217, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000221, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000225, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000227, qty: 1, time: 1440 * 90, price: 6000},//
+
     {id: 5000228, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000229, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000230, qty: 1, time: 1440 * 90, price: 6000},//
@@ -101,29 +101,29 @@ var pets = [
     {id: 5000249, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000250, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000251, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000252, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000253, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000255, qty: 1, time: 1440 * 90, price: 6000},//
+
+
+
     {id: 5000256, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000257, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000258, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000264, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000267, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000268, qty: 1, time: 1440 * 90, price: 6000},//
+
+
+
     {id: 5000269, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000270, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000271, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000272, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000273, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000274, qty: 1, time: 1440 * 90, price: 6000},//
+
     {id: 5000275, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000276, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000277, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000281, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000282, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000283, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000284, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000285, qty: 1, time: 1440 * 90, price: 6000},//
+
+
     {id: 5000287, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000288, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000289, qty: 1, time: 1440 * 90, price: 6000},//
@@ -137,15 +137,15 @@ var pets = [
     {id: 5000297, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000298, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000299, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000300, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000301, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000302, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000303, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000304, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000305, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000306, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000307, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000308, qty: 1, time: 1440 * 90, price: 6000},//
+
+
+
+
+
+
+
+
+
     {id: 5000309, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000310, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000311, qty: 1, time: 1440 * 90, price: 6000},//
@@ -156,7 +156,7 @@ var pets = [
     {id: 5000320, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000321, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000322, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000324, qty: 1, time: 1440 * 90, price: 6000},//
+
     {id: 5000328, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000330, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000331, qty: 1, time: 1440 * 90, price: 6000},//
@@ -169,7 +169,7 @@ var pets = [
     {id: 5000352, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000353, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000354, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000358, qty: 1, time: 1440 * 90, price: 6000},//
+
     {id: 5000365, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000366, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000367, qty: 1, time: 1440 * 90, price: 6000},//
@@ -186,11 +186,11 @@ var pets = [
     {id: 5000385, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000386, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000387, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000388, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000389, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000390, qty: 1, time: 1440 * 90, price: 6000},//
+
+
+
     {id: 5000391, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000393, qty: 1, time: 1440 * 90, price: 6000},//
+
     {id: 5000402, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000403, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000404, qty: 1, time: 1440 * 90, price: 6000},//
@@ -203,7 +203,7 @@ var pets = [
     {id: 5000415, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000416, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000417, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000424, qty: 1, time: 1440 * 90, price: 6000},//
+
     {id: 5000425, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000426, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000427, qty: 1, time: 1440 * 90, price: 6000},//
@@ -237,13 +237,13 @@ var pets = [
     {id: 5000475, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000476, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000479, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000483, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000528, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000529, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000541, qty: 1, time: 1440 * 90, price: 6000},//
+
+
+
+
     {id: 5000606, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000608, qty: 1, time: 1440 * 90, price: 6000},//
-    {id: 5000616, qty: 1, time: 1440 * 90, price: 6000},//
+
     {id: 5000622, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000631, qty: 1, time: 1440 * 90, price: 6000},//
     {id: 5000632, qty: 1, time: 1440 * 90, price: 6000},//
@@ -265,12 +265,12 @@ var pets = [
     // {id: 5001009, qty: 1, time: 1440 * 90, price: 6000},//
     // {id: 5001010, qty: 1, time: 1440 * 90, price: 6000},//
     // {id: 5001011, qty: 1, time: 1440 * 90, price: 6000},//
-    // {id: 5001012, qty: 1, time: 1440 * 90, price: 6000},//
-    // {id: 5001013, qty: 1, time: 1440 * 90, price: 6000},//
-    // {id: 5001014, qty: 1, time: 1440 * 90, price: 6000},//
-    // {id: 5001015, qty: 1, time: 1440 * 90, price: 6000},//
-    // {id: 5001016, qty: 1, time: 1440 * 90, price: 6000},//
-    // {id: 5001017, qty: 1, time: 1440 * 90, price: 6000},//
+
+
+
+
+
+
 ];
 
 
