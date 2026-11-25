@@ -5,8 +5,8 @@ NPC- 杜亚诗9330021
 
 var status = 0;
 var beauty = 0;
-var mhair = Array(33090, 30990, 30880, 33080, 30830, 30870, 33030, 30890, 30740, 30930, 30900, 30750);
-var fhair = Array(34100, 31940, 34000, 34090, 31930, 31770, 34040, 31920, 31880, 31950, 31910, 31760);
+var mhair = cm.getBeautyStyles282("hair", 0);
+var fhair = cm.getBeautyStyles282("hair", 1);
 var hairnew = Array();
 
 function start() {

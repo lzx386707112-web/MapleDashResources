@@ -28,8 +28,8 @@ var status = 0;
 var beauty = 0;
 var hairprice = 702000000;
 var haircolorprice = 702000000;
-var mhair_v = Array(30060, 30140, 30200, 30210, 30310, 33030, 33100);
-var fhair_v = Array(31150, 31300, 31350, 31700, 31740, 34040, 34110);
+var mhair_v = cm.getBeautyStyles282("hair", 0);
+var fhair_v = cm.getBeautyStyles282("hair", 1);
 var hairnew = Array();
 
 function start() {

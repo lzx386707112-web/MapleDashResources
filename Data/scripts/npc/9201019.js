@@ -27,8 +27,8 @@
 var status = 0;
 var beauty = 0;
 var price = 1000000;
-var mface_r = Array(20002, 20005, 20007, 20011, 20014, 20027, 20029);
-var fface_r = Array(21001, 21005, 21007, 21017, 21018, 21020, 21022);
+var mface_r = cm.getBeautyStyles282("face", 0);
+var fface_r = cm.getBeautyStyles282("face", 1);
 var facenew = Array();
 
 function pushIfItemExists(array, itemid) {

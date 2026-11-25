@@ -55,22 +55,20 @@ function action(mode, type, selection) {
         if (status == 1) {
             if (selection == 1) {
                 beauty = 1;
-                var current = cm.getPlayer().getFace() % 100 + 20000 + cm.getPlayer().getGender() * 1000;
+                var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 cm.sendYesNo("如果你使用普通会员卡，你将获得一副随机的化妆隐形眼镜。你打算使用#b#t5152039##k，真的改变你的眼睛吗？");
             } else if (selection == 2) {
                 beauty = 2;
-                var current = cm.getPlayer().getFace() % 100 + 20000 + cm.getPlayer().getGender() * 1000;
+                var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 pushIfItemsExists(colors, [current + 200, current + 300, current + 400, current + 700]);
                 cm.sendStyle("用我们的专业机器，您可以提前看到治疗后的自己，您想戴什么样的镜片呢？选择自己喜欢的款式吧。", colors);
             } else if (selection == 3) {
                 beauty = 3;
                 if (cm.getPlayer().getGender() == 0) {
-                    var current = cm.getPlayer().getFace()
-                        % 100 + 20000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
                 if (cm.getPlayer().getGender() == 1) {
-                    var current = cm.getPlayer().getFace()
-                        % 100 + 21000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
 
                 colors = Array();

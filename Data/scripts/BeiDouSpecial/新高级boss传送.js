@@ -11,6 +11,7 @@ var entryItems = Array(
     Array(2210006, 1)
 );
 var LUCID_EXPEDITION_SELECTION = 998;
+var WILL_EXPEDITION_SELECTION = 997;
 
 function start() {
     if (!cm.getPlayer().isGM() && cm.getPlayer().getLevel() < 100) {
@@ -25,6 +26,10 @@ function start() {
     }
     text += "\r\n#L" + LUCID_EXPEDITION_SELECTION
         + "##r梦中的路西德·远征入口           （前往恶梦时间塔）#b#l\r\n";
+    // 450007240 = 鏡光神座（艾斯佩拉）。282 的入场等级：简单 235 / 普通·困难 250，
+    // 这里统一按 235 放行，具体难度在远征队里选。
+    text += "#L" + WILL_EXPEDITION_SELECTION
+        + "##r威尔·远征入口                        （前往镜光神座）#b#l\r\n";
     cm.sendNextSelectLevel("Boss", text);
 }
 
@@ -32,6 +37,17 @@ function levelBoss(selection) {
     if (selection == LUCID_EXPEDITION_SELECTION) {
         cm.getPlayer().saveLocation("BOSSPQ");
         cm.warp(450004000, 0);
+        cm.dispose();
+        return;
+    }
+    if (selection == WILL_EXPEDITION_SELECTION) {
+        if (!cm.getPlayer().isGM() && cm.getPlayer().getLevel() < 235) {
+            cm.sendOk("威尔入场需要 235 级以上（普通/困难为 250 级）。");
+            cm.dispose();
+            return;
+        }
+        cm.getPlayer().saveLocation("BOSSPQ");
+        cm.warp(450007240, 0);
         cm.dispose();
         return;
     }

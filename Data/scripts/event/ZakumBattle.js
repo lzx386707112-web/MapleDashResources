@@ -234,7 +234,8 @@ function allMonstersDead(eim) {}
 function cancelSchedule() {}
 
 function updateGateState(newState) {    // thanks Conrad for noticing missing gate update
-    em.getChannelServer().getMapFactory().getMap(211042300).getReactorById(2118002).forceHitReactor(newState);
+    var reactor = em.getChannelServer().getMapFactory().getMap(211042300).getReactorById(2118002);
+    if (reactor != null) reactor.forceHitReactor(newState);
 }
 
 function dispose(eim) {

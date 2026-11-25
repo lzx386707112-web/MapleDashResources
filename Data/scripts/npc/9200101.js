@@ -68,10 +68,10 @@ function action(mode, type, selection) {
 
 function selectedRegularCoupon() {
     if (cm.getPlayer().getGender() == 0) {
-        var current = cm.getPlayer().getFace() % 100 + 20000;
+        var current = cm.getBeautyBase282(cm.getPlayer().getFace());
     }
     if (cm.getPlayer().getGender() == 1) {
-        var current = cm.getPlayer().getFace() % 100 + 21000;
+        var current = cm.getBeautyBase282(cm.getPlayer().getFace());
     }
     colors = Array();
     pushIfItemsExists(colors, [current + 100, current + 300, current + 400, current + 700]);
@@ -80,9 +80,9 @@ function selectedRegularCoupon() {
 
 function selectedVipCoupon() {
     if (cm.getPlayer().isMale()) {
-        var current = cm.getPlayer().getFace() % 100 + 20000;
+        var current = cm.getBeautyBase282(cm.getPlayer().getFace());
     } else {
-        var current = cm.getPlayer().getFace() % 100 + 21000;
+        var current = cm.getBeautyBase282(cm.getPlayer().getFace());
     }
 
     colors = Array();
@@ -102,9 +102,9 @@ function pushIfItemsExists(array, itemidList) {
 
 function selectedOneTimeCoupon() {
     if (cm.getPlayer().isMale()) {
-        var current = cm.getPlayer().getFace() % 100 + 20000;
+        var current = cm.getBeautyBase282(cm.getPlayer().getFace());
     } else {
-        var current = cm.getPlayer().getFace() % 100 + 21000;
+        var current = cm.getBeautyBase282(cm.getPlayer().getFace());
     }
 
     colors = Array();

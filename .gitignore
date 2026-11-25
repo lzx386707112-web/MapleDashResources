@@ -13,3 +13,9 @@ Data/Etc/_Canvas/BossLucid.img
 
 # 打包工具生成的清单文件
 MapleDashResources.patch.manifest.json
+
+# 打包产物（体积超限，不进版本库）
+*.patch.zip
+
+# 客户端合并用的完整大文件（版本库以 part1/part2 分片保存）
+Data/Effect/_Canvas/ItemEff.img

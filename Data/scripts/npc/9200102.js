@@ -64,10 +64,10 @@ function action(mode, type, selection) {
             if (selection == 1) {
                 beauty = 1;
                 if (cm.getPlayer().getGender() == 0) {
-                    var current = cm.getPlayer().getFace() % 100 + 20000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
                 if (cm.getPlayer().getGender() == 1) {
-                    var current = cm.getPlayer().getFace() % 100 + 21000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
                 colors = Array();
                 pushIfItemsExists(colors, [current + 200, current + 300, current + 400, current + 500, current + 700]);
@@ -75,10 +75,10 @@ function action(mode, type, selection) {
             } else if (selection == 2) {
                 beauty = 2;
                 if (cm.getPlayer().getGender() == 0) {
-                    var current = cm.getPlayer().getFace() % 100 + 20000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
                 if (cm.getPlayer().getGender() == 1) {
-                    var current = cm.getPlayer().getFace() % 100 + 21000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
                 colors = Array();
                 pushIfItemsExists(colors, [current + 200, current + 300, current + 400, current + 500, current + 700]);
@@ -86,12 +86,10 @@ function action(mode, type, selection) {
             } else if (selection == 3) {
                 beauty = 3;
                 if (cm.getPlayer().getGender() == 0) {
-                    var current = cm.getPlayer().getFace()
-                        % 100 + 20000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
                 if (cm.getPlayer().getGender() == 1) {
-                    var current = cm.getPlayer().getFace()
-                        % 100 + 21000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
 
                 colors = Array();

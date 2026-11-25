@@ -28,10 +28,10 @@ var status = 0;
 var beauty = 0;
 var hairprice = 1000000;
 var haircolorprice = 1000000;
-var mhair_r = Array(30190, 30220, 30250, 30540, 30610, 30620, 30640, 30650, 30660, 30840, 30870, 30940, 30990);
-var fhair_r = Array(31170, 31270, 31290, 31510, 31540, 31550, 31600, 31640, 31680, 31810, 31830, 31840, 31870);
-var mhair_e = Array(30030, 30190, 30220, 30250, 30540, 30610, 30620, 30640, 30650, 30660, 30840, 30990);
-var fhair_e = Array(31170, 31270, 31420, 31510, 31540, 31550, 31600, 31680, 31810, 31830, 31840, 31870);
+var mhair_r = cm.getBeautyStyles282("hair", 0);
+var fhair_r = cm.getBeautyStyles282("hair", 1);
+var mhair_e = cm.getBeautyStyles282("hair", 0);
+var fhair_e = cm.getBeautyStyles282("hair", 1);
 var hairnew = Array();
 
 function pushIfItemExists(array, itemid) {

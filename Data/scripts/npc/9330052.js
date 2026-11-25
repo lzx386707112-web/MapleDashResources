@@ -1,7 +1,7 @@
 var status = 0;
 var beauty = 0;
-var mface = Array(20000, 20001, 20002, 20003, 20004, 20005, 20006, 20007, 20008, 20012, 20014);
-var fface = Array(21000, 21001, 21002, 21003, 21004, 21005, 21006, 21007, 21008, 21012, 21014);
+var mface = cm.getBeautyStyles282("face", 0);
+var fface = cm.getBeautyStyles282("face", 1);
 var facenew = Array();
 
 function start() {

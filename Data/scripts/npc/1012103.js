@@ -2,14 +2,8 @@ var status = -1;
 var selectedBase = 0;
 var colorOptions = [];
 
-var MALE_BASES = [
-    40070, 40080, 42100, 46540, 46550, 47140,
-    42220, 42230, 42240, 42250, 42260, 42270
-];
-var FEMALE_BASES = [
-    43280, 44430, 44460, 48670, 48680, 48690, 48700,
-    48710, 48720, 48730, 48740, 48750, 48760, 48770
-];
+var MALE_BASES = cm.getBeautyStyles282("hair", 0);
+var FEMALE_BASES = cm.getBeautyStyles282("hair", 1);
 
 function start() {
     action(1, 0, 0);
@@ -58,11 +52,7 @@ function action(mode, type, selection) {
 }
 
 function buildColorOptions(base) {
-    var result = [];
-    for (var color = 0; color <= 7; color++) {
-        result.push(base + color);
-    }
-    return result;
+    return cm.getBeautyColors282(cm.getCosmeticItem(base));
 }
 
 function getGenderBases() {

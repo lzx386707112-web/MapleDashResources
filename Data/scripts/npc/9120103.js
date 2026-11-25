@@ -29,8 +29,8 @@
 var status = 0;
 var beauty = 0;
 var price = 1000000;
-var mface_r = Array(20000, 20016, 20019, 20020, 20021, 20024, 20026);
-var fface_r = Array(21000, 21002, 21009, 21016, 21022, 21025, 21027);
+var mface_r = cm.getBeautyStyles282("face", 0);
+var fface_r = cm.getBeautyStyles282("face", 1);
 var facenew = Array();
 var colors = Array();
 
@@ -76,12 +76,10 @@ function action(mode, type, selection) {
             } else if (selection == 2) {
                 beauty = 1;
                 if (cm.getPlayer().getGender() == 0) {
-                    var current = cm.getPlayer().getFace()
-                        % 100 + 20000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
                 if (cm.getPlayer().getGender() == 1) {
-                    var current = cm.getPlayer().getFace()
-                        % 100 + 21000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
                 colors = Array();
                 pushIfItemsExists(colors, [current, current + 100, current + 200, current + 300, current + 400, current + 500, current + 700]);

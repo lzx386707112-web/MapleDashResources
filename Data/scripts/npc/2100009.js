@@ -8,8 +8,8 @@
 
 var status = 0;
 var beauty = 0;
-var mface_r = Array(20001, 20003, 20009, 20010, 20025, 20031);
-var fface_r = Array(21002, 21009, 21011, 21013, 21016, 21029, 21030);
+var mface_r = cm.getBeautyStyles282("face", 0);
+var fface_r = cm.getBeautyStyles282("face", 1);
 var facenew = Array();
 
 function pushIfItemExists(array, itemid) {
@@ -72,12 +72,10 @@ function action(mode, type, selection) {
             } else if (selection == 2) {
                 beauty = 1;
                 if (cm.getPlayer().getGender() == 0) {
-                    var current = cm.getPlayer().getFace()
-                        % 100 + 20000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
                 if (cm.getPlayer().getGender() == 1) {
-                    var current = cm.getPlayer().getFace()
-                        % 100 + 21000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
                 colors = Array();
                 pushIfItemsExists(colors, [current, current + 100, current + 300, current + 600, current + 700]);

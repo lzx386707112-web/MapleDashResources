@@ -26,8 +26,8 @@
 */
 var status = 0;
 var beauty = 0;
-var mface_v = Array(20000, 20001, 20004, 20005, 20006, 20007, 20009, 20012, 20022, 20028, 20031);
-var fface_v = Array(21000, 21003, 21005, 21006, 21008, 21009, 21011, 21012, 21023, 21024, 21026);
+var mface_v = cm.getBeautyStyles282("face", 0);
+var fface_v = cm.getBeautyStyles282("face", 1);
 
 function pushIfItemsExists(array, itemidList) {
     for (var i = 0; i < itemidList.length; i++) {
@@ -83,12 +83,10 @@ function action(mode, type, selection) {
             } else if (selection == 2) {
                 beauty = 2;
                 if (cm.getPlayer().getGender() == 0) {
-                    var current = cm.getPlayer().getFace()
-                        % 100 + 20000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
                 if (cm.getPlayer().getGender() == 1) {
-                    var current = cm.getPlayer().getFace()
-                        % 100 + 21000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
                 colors = Array();
                 pushIfItemsExists(colors, [current, current + 100, current + 300, current + 500, current + 600, current + 700]);
@@ -96,12 +94,10 @@ function action(mode, type, selection) {
             } else if (selection == 3) {
                 beauty = 3;
                 if (cm.getPlayer().getGender() == 0) {
-                    var current = cm.getPlayer().getFace()
-                        % 100 + 20000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
                 if (cm.getPlayer().getGender() == 1) {
-                    var current = cm.getPlayer().getFace()
-                        % 100 + 21000;
+                    var current = cm.getBeautyBase282(cm.getPlayer().getFace());
                 }
 
                 colors = Array();

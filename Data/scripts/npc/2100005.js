@@ -8,8 +8,8 @@
 
 var status = 0;
 var beauty = 0;
-var mhair_r = Array(30150, 30170, 30180, 30320, 30330, 30410, 30460, 30680, 30800, 30820, 30900);
-var fhair_r = Array(31090, 31190, 31330, 31340, 31400, 31420, 31520, 31620, 31650, 31660, 34000);
+var mhair_r = cm.getBeautyStyles282("hair", 0);
+var fhair_r = cm.getBeautyStyles282("hair", 1);
 var hairnew = Array();
 
 function pushIfItemExists(array, itemid) {

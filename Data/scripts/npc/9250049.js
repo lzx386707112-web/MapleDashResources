@@ -6,8 +6,8 @@
 
 var status = 0;
 var beauty = 0;
-var mhair = Array(30030, 30020, 30000, 30130, 30350, 30190, 30110, 30180, 30050, 30040, 30160);
-var fhair = Array(31050, 31040, 31000, 31060, 31090, 31020, 31130, 31120, 31140, 31330, 31010);
+var mhair = cm.getBeautyStyles282("hair", 0);
+var fhair = cm.getBeautyStyles282("hair", 1);
 var hairnew = Array();
 
 function start() {

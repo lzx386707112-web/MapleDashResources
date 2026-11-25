@@ -27,8 +27,8 @@
 */
 
 var status = 0;
-var mhair_q = Array(30270, 30240, 30020, 30000, 30132, 30192, 30032, 30112, 30162);
-var fhair_q = Array(31150, 31250, 31310, 31050, 31050, 31030, 31070, 31091, 31001);
+var mhair_q = cm.getBeautyStyles282("hair", 0);
+var fhair_q = cm.getBeautyStyles282("hair", 1);
 var hairnew = Array();
 
 function pushIfItemExists(array, itemid) {

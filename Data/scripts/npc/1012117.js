@@ -29,11 +29,11 @@
 
 var status = 0;
 
-var mhair_r = Array(30010, 30070, 30080, 30090, 30100, 30680, 30760, 33000);
-var fhair_r = Array(31130, 31530, 31820, 31920, 31940, 34000, 34040);
+var mhair_r = cm.getBeautyStyles282("hair", 0);
+var fhair_r = cm.getBeautyStyles282("hair", 1);
 
-var mhair_v = Array(30010, 30070, 30080, 30090, 30100, 30480, 30560, 30680, 30760, 30850, 30890, 30930, 30950);
-var fhair_v = Array(31020, 31130, 31510, 31530, 31820, 31860, 31890, 31920, 31940, 31950, 34000);
+var mhair_v = cm.getBeautyStyles282("hair", 0);
+var fhair_v = cm.getBeautyStyles282("hair", 1);
 
 var hairnew = Array();
 
