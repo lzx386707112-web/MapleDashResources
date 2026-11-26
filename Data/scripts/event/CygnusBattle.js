@@ -4,7 +4,8 @@
 
 var isPq = true;
 var minPlayers = 1, maxPlayers = 30;
-var minLevel = 170, maxLevel = 255;
+const GameConfig = Java.type('org.gms.config.GameConfig');
+var minLevel = 170, maxLevel = GameConfig.getServerInt("mxj_max_level");
 var entryMap = 271040100;
 var exitMap = 271040000;
 var recruitMap = 271040000;
@@ -121,6 +122,7 @@ function playerExit(eim, player) {
 }
 
 function end(eim) {
+    eim.stopEventTimer();
     var party = eim.getPlayers();
     for (var i = 0; i < party.size(); i++) {
         playerExit(eim, party.get(i));
@@ -134,10 +136,14 @@ function giveRandomEventReward(eim, player) {
 
 function clearPQ(eim) {
     eim.stopEventTimer();
+    eim.getMapInstance(entryMap).killAllMonsters();
+    eim.getMapInstance(271040110).killAllMonsters();
     eim.setEventCleared();
 }
 
-function monsterKilled(mob, eim) {
+function monsterKilled(mob, eim, hasKiller) {
+    if (hasKiller === false || eim.getIntProperty("defeatedBoss") != 0 ||
+        mob.getObjectId() != eim.getIntProperty("stageMonster")) return;
     var nextMobId = getNextMobId(mob.getId());
     if (nextMobId > 0) {
         spawnNext(mob.getMap(), nextMobId);
@@ -170,7 +176,9 @@ function getNextMobId(mobId) {
 function spawnNext(map, mobId) {
     const LifeFactory = Java.type('org.gms.server.life.LifeFactory');
     const Point = Java.type('java.awt.Point');
-    map.spawnMonsterOnGroundBelow(LifeFactory.getMonster(mobId), new Point(-363, 100));
+    var monster = LifeFactory.getMonster(mobId);
+    map.spawnMonsterOnGroundBelow(monster, new Point(-363, 100));
+    map.getEventInstance().setIntProperty("stageMonster", monster.getObjectId());
 }
 
 function allMonstersDead(eim) {}

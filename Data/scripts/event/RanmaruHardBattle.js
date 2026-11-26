@@ -1,13 +1,13 @@
+const GameConfig = Java.type('org.gms.config.GameConfig');
 var isPq = true;
 var minPlayers = 1, maxPlayers = 30;
-var minLevel = 120, maxLevel = 255;
+var minLevel = 120, maxLevel = GameConfig.getServerInt("mxj_max_level");
 var entryMap = 807300210;
 var exitMap = 807300100;
 var recruitMap = 807300100;
 var eventTime = 30;
 var bossId = 9421583;
 const maxLobbies = 1;
-const GameConfig = Java.type('org.gms.config.GameConfig');
 const LifeFactory = Java.type('org.gms.server.life.LifeFactory');
 const Point = Java.type('java.awt.Point');
 

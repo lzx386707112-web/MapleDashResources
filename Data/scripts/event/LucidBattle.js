@@ -12,7 +12,8 @@
  */
 
 var minPlayers = 1, maxPlayers = 30;
-var minLevel = 220, maxLevel = 255;
+const GameConfig = Java.type('org.gms.config.GameConfig');
+var minLevel = 220, maxLevel = GameConfig.getServerInt("mxj_max_level");
 
 var entryMap = 450004100;   // 简单难度的进场走廊；实际落地图由 native 按难度决定
 var exitMap = 450004000;    // 露希妲入口（NPC 3003208 所在图）
@@ -68,7 +69,11 @@ function changedMap(eim, player, mapid) {
 }
 
 function playerDead(eim, player) {}
-function playerRevive(eim, player) {}
+function playerRevive(eim, player) {
+    if (player == null) return;
+    eim.unregisterPlayer(player);
+    player.respawn(eim, exitMap);
+}
 function changedLeader(eim, leader) {}
 function leftParty(eim, player) {}
 function disbandParty(eim) {}

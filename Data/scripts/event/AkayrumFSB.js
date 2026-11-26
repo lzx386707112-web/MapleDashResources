@@ -5,7 +5,8 @@
 
 var isPq = true;
 var minPlayers = 1, maxPlayers = 1;
-var minLevel = 140, maxLevel = 255;
+const GameConfig = Java.type('org.gms.config.GameConfig');
+var minLevel = 140, maxLevel = GameConfig.getServerInt("mxj_max_level");
 var entryMap = 272010200;
 var exitMap = 272010000;
 var recruitMap = 272010000;

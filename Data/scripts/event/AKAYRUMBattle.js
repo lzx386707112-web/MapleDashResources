@@ -4,9 +4,10 @@
  * @optimized: 北斗GMS083 适配优化
  */
 
+const GameConfig = Java.type('org.gms.config.GameConfig');
 var isPq = true;
 var minPlayers = 2, maxPlayers = 30;
-var minLevel = 140, maxLevel = 255;
+var minLevel = 140, maxLevel = GameConfig.getServerInt("mxj_max_level");
 var entryMap = 272030400;
 //var entryItem = 4033611;    // 入场消耗道具
 var exitMap = 272030300;
@@ -20,7 +21,6 @@ var eventTime = 120;     // 120 minutes
 
 const maxLobbies = 1;
 
-const GameConfig = Java.type('org.gms.config.GameConfig');
 const LifeFactory = Java.type('org.gms.server.life.LifeFactory');
 
 minPlayers = GameConfig.getServerBoolean("use_enable_solo_expeditions") ? 1 : minPlayers;

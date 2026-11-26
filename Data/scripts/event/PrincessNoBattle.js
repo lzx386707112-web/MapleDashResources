@@ -1,6 +1,7 @@
 var isPq = true;
 var minPlayers = 1, maxPlayers = 6;
-var minLevel = 160, maxLevel = 255;
+const GameConfig = Java.type('org.gms.config.GameConfig');
+var minLevel = 160, maxLevel = GameConfig.getServerInt("mxj_max_level");
 var eventTime = 30;
 var entryMap = 811000100;
 var exitMap = 807000000;
