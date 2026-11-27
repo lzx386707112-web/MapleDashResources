@@ -19,3 +19,6 @@ MapleDashResources.patch.manifest.json
 
 # 客户端合并用的完整大文件（版本库以 part1/part2 分片保存）
 Data/Effect/_Canvas/ItemEff.img
+
+# 客户端合并用的完整大文件（版本库以 part1/part2 分片保存）
+Data/Skill/FieldSkill.img

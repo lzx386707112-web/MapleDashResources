@@ -12,7 +12,7 @@ function action(mode, type, selection) {
     if (status == 0) {
         if (cm.getMapId() == 450007240) {
             cm.dispose();
-            cm.openNpc(9900001, "威尔远征");
+            cm.openNpc(3003558, "威尔远征");
             return;
         }
         cm.sendOk("镜之世界就在前方。");
