@@ -18,6 +18,7 @@ function setup(channel) {
 }
 function afterSetup(eim) { eim.startEventTimer(eventTime * 60000); }
 function playerEntry(eim, player) {
+    eim.setProperty("run_" + player.getId(), player.startBossRun282("GloomBattle", eim.getIntProperty("difficulty")));
     player.changeMap(eim.getIntProperty("difficulty") == 1 ? 450009450 : 450009400, 0);
 }
 function changedMap(eim, player, mapid) {
@@ -41,8 +42,16 @@ function end(eim) {
 }
 function dispose(eim) {}
 function monsterValue(eim, mobId) { return 1; }
-function allMonstersDead(eim) { eim.setProperty("canJoin", 0); eim.stopEventTimer(); eim.setEventCleared(); eim.showClearEffect(); }
-function monsterKilled(mob, eim) {}
+function allMonstersDead(eim) {}
+function monsterKilled(mob, eim, hasKiller) {
+    var difficulty = eim.getIntProperty("difficulty");
+    if (!hasKiller || mob.getId() != (difficulty == 1 ? 8644655 : 8644650) || eim.getIntProperty("clearRecorded") != 0) return;
+    eim.setProperty("clearRecorded", 1);
+    eim.setProperty("canJoin", 0);
+    eim.setEventCleared();
+    eim.showClearEffect();
+    eim.startEventTimer(300000);
+}
 function killed(eim, player, mobid) {}
 function changedLeader(eim, leader) {}
 function leftParty(eim, player) {}

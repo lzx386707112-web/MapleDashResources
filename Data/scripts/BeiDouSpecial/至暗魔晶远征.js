@@ -147,6 +147,8 @@ function action(mode, type, selection) {
             return;
         }
         em.setProperty("difficulty", String(selection - 1));
+        var entryError = player.getBossEntryError282(eventName, selection - 1);
+        if (entryError != "") { cm.sendOk(entryError); cm.dispose(); return; }
         status = 4;
         action(1, 0, 0);
     } else if (status == 6) {

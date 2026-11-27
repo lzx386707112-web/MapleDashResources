@@ -10,10 +10,26 @@ function setup(channel) {
 }
 function afterSetup(eim) { eim.startEventTimer(eventTime * 60000); }
 function playerEntry(eim, player) {
+    eim.setProperty("run_" + player.getId(), player.startBossRun282("BlackMageBattle", 0));
     player.changeMap(450013100, 0);
 }
 function changedMap(eim, player, mapid) {
-    if (mapid == 450013750) { eim.setProperty("canJoin", 0); eim.stopEventTimer(); eim.setEventCleared(); }
+    if (mapid == 450013750 && eim.getIntProperty("rewardSpawned") == 0) {
+        eim.setProperty("rewardSpawned", 1);
+        eim.setProperty("canJoin", 0);
+        var token = eim.getProperty("run_" + player.getId());
+        if (player.completeBossRun282("BlackMageBattle", 0, token)) {
+            var map = eim.getMapInstance(450013750);
+            map.resetPQ();
+            var mob = em.getMonster(8880518);
+            var Point = Java.type("java.awt.Point");
+            mob.setPosition(new Point(0, 85));
+            eim.registerMonster(mob);
+            map.spawnMonster(mob);
+            eim.setEventCleared();
+            eim.startEventTimer(300000);
+        } else { playerExit(eim, player); }
+    }
     if (mapid < 450013000 || mapid > 450013780) {
         eim.unregisterPlayer(player);
         eim.disposeIfPlayerBelow(1, exitMap);
