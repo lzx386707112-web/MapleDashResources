@@ -6,6 +6,7 @@ function setup(channel) {
     var eim = em.newInstance("BlackMageBattle" + channel);
     eim.setProperty("canJoin", 1);
     eim.setProperty("difficulty", em.getProperty("difficulty"));
+    eim.getMapInstance(450013750);
     return eim;
 }
 function afterSetup(eim) { eim.startEventTimer(eventTime * 60000); }
