@@ -20,6 +20,7 @@ function changedMap(eim, player, mapid) {
     }
 }
 function playerDead(eim, player) { eim.setProperty("deaths_" + player.getId(), eim.getIntProperty("deaths_" + player.getId()) + 1); }
+function curseLifeLost(eim, player) { playerDead(eim, player); return playerRevive(eim, player); }
 function playerRevive(eim, player) {
     if (eim.getIntProperty("deaths_" + player.getId()) >= 10) { playerExit(eim, player); return false; }
     return true;
