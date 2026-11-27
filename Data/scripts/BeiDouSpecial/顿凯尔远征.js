@@ -115,8 +115,8 @@ function action(mode, type, selection) {
                 return;
             }
             cm.sendSimple("#e#b<顿凯尔>#k#n\r\n\r\n选择本次挑战的难度：\r\n\r\n"
-                + "#L1#普通模式（Lv.255，本体 26 兆）#l\r\n"
-                + "#L2#困难模式（Lv.255，本体 160 兆）#l");
+                + "#L1#普通模式（Lv.255）#l\r\n"
+                + "#L2#困难模式（Lv.255）#l");
             status = 7;
         } else if (selection == 3) {
             player.getMap().broadcastMessage(PacketCreator.serverNotice(6, expedition.getLeader().getName() + " 解散了顿凯尔远征队。"));

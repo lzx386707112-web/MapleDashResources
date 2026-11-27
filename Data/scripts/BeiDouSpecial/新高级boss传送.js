@@ -1,8 +1,4 @@
 var bossMaps = Array(
-    Array(262030300, 500000, "希拉                               #r（消耗50万金币）#b", 8870000, -1, 1092, 196),
-    Array(262031300, 500000, "白发希拉                       #r（消耗50万金币）#b", 8870200, -1, 1092, 196),
-    Array(450010100, 500000, "觉醒希拉                       #r（消耗50万金币）#b", 8880400, -1, 855, 266),
-    Array(450009400, 500000, "亲卫队长敦凯尔            #r（消耗50万金币）#b", 8645009, -1, -1, -157),
     Array(410002060, 500000, "监视者卡洛斯                #r（消耗50万金币）#b", 8880803, -1, 900, 325),
 );
 
@@ -12,6 +8,12 @@ var entryItems = Array(
 );
 var LUCID_EXPEDITION_SELECTION = 998;
 var WILL_EXPEDITION_SELECTION = 997;
+var advancedBossEntrances = Array(
+    Array(996, 450011990, "觉醒希拉·远征入口"),
+    Array(995, 450012200, "顿凯尔·远征入口"),
+    Array(994, 450009301, "至暗魔晶·入口"),
+    Array(993, 450012500, "黑魔法师·入口")
+);
 
 function start() {
     if (!cm.getPlayer().isGM() && cm.getPlayer().getLevel() < 100) {
@@ -30,10 +32,21 @@ function start() {
     // 这里统一按 235 放行，具体难度在远征队里选。
     text += "#L" + WILL_EXPEDITION_SELECTION
         + "##r威尔·远征入口                        （前往镜光神座）#b#l\r\n";
+    for (var j = 0; j < advancedBossEntrances.length; j++) {
+        text += "#L" + advancedBossEntrances[j][0] + "##r" + advancedBossEntrances[j][2] + "#b#l\r\n";
+    }
     cm.sendNextSelectLevel("Boss", text);
 }
 
 function levelBoss(selection) {
+    for (var i = 0; i < advancedBossEntrances.length; i++) {
+        if (selection == advancedBossEntrances[i][0]) {
+            cm.getPlayer().saveLocation("BOSSPQ");
+            cm.warp(advancedBossEntrances[i][1], 0);
+            cm.dispose();
+            return;
+        }
+    }
     if (selection == LUCID_EXPEDITION_SELECTION) {
         cm.getPlayer().saveLocation("BOSSPQ");
         cm.warp(450004000, 0);

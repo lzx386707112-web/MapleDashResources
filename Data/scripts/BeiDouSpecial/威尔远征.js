@@ -115,9 +115,9 @@ function action(mode, type, selection) {
                 return;
             }
             cm.sendSimple("#e#b<威尔>#k#n\r\n\r\n选择本次挑战的难度：\r\n\r\n"
-                + "#L1#简单模式（Lv.235，P1 双身体各 2.7 兆 / P2 4.16 兆 / P3 6.94 兆）#l\r\n"
-                + "#L2#普通模式（Lv.235，P1 双身体各 4.2 兆 / P2 6.3 兆 / P3 10.5 兆）#l\r\n"
-                + "#L3#困难模式（Lv.235，P1 双身体各 21 兆 / P2 31.5 兆 / P3 52.5 兆）#l");
+                + "#L1#简单模式（Lv.235）#l\r\n"
+                + "#L2#普通模式（Lv.235）#l\r\n"
+                + "#L3#困难模式（Lv.235）#l");
             status = 7;
         } else if (selection == 3) {
             player.getMap().broadcastMessage(PacketCreator.serverNotice(6, expedition.getLeader().getName() + " 解散了威尔远征队。"));

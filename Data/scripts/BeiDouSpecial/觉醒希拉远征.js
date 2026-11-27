@@ -115,8 +115,8 @@ function action(mode, type, selection) {
                 return;
             }
             cm.sendSimple("#e#b<真‧希拉>#k#n\r\n\r\n选择本次挑战的难度：\r\n\r\n"
-                + "#L1#普通模式（Lv.250，本体 88 兆）#l\r\n"
-                + "#L2#困难模式（Lv.250，本体 176 兆）#l");
+                + "#L1#普通模式（Lv.250）#l\r\n"
+                + "#L2#困难模式（Lv.250）#l");
             status = 7;
         } else if (selection == 3) {
             player.getMap().broadcastMessage(PacketCreator.serverNotice(6, expedition.getLeader().getName() + " 解散了真‧希拉远征队。"));

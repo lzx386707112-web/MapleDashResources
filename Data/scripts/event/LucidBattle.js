@@ -70,9 +70,7 @@ function changedMap(eim, player, mapid) {
 
 function playerDead(eim, player) {}
 function playerRevive(eim, player) {
-    if (player == null) return;
-    eim.unregisterPlayer(player);
-    player.respawn(eim, exitMap);
+    return true;
 }
 function changedLeader(eim, leader) {}
 function leftParty(eim, player) {}

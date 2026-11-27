@@ -115,9 +115,9 @@ function action(mode, type, selection) {
                 return;
             }
             cm.sendSimple("#e#b<露希妲>#k#n\r\n\r\n选择本次挑战的难度：\r\n\r\n"
-                + "#L1#简单模式（Lv.220，HP 76,563,532）#l\r\n"
-                + "#L2#普通模式（Lv.220，HP 170,141,183）#l\r\n"
-                + "#L3#困难模式（Lv.220，HP 340,282,366，追加「愤怒」阶段）#l");
+                + "#L1#简单模式（Lv.220）#l\r\n"
+                + "#L2#普通模式（Lv.220）#l\r\n"
+                + "#L3#困难模式（Lv.220，追加「愤怒」阶段）#l");
             status = 7;
         } else if (selection == 3) {
             player.getMap().broadcastMessage(PacketCreator.serverNotice(6, expedition.getLeader().getName() + " 解散了露希妲远征队。"));
