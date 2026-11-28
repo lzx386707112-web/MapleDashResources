@@ -3,5 +3,5 @@ function start(ms) {
     if (player == null) {
         return;
     }
-    player.dropMessage(5, "走到祭坛前，按 ↑（手机向上推摇杆）打开觉醒希拉远征菜单。");
+    player.dropMessage(5, "点击地图右侧的祭坛（或走到祭坛前按 ↑ / 手机向上推摇杆）打开觉醒希拉远征菜单。");
 }
